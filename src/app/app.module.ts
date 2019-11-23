@@ -2,13 +2,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppComponent } from './components/app/app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TripComponent } from './components/trip/trip.component';
+import { TripsComponent } from './components/trips/trips.component';
 
 
 @NgModule({
     declarations: [
         AppComponent,
+        TripComponent,
+        TripsComponent,
     ],
     imports: [
         BrowserModule,
@@ -19,12 +23,4 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     bootstrap: [ AppComponent ],
 })
 export class AppModule {
-}
-
-
-function t(
-    a: string,
-    b: string,
-): string {
-    return 'asdsa';
 }

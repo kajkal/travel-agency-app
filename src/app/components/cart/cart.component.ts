@@ -5,6 +5,7 @@ import { Trip } from '../../models/Trip';
 import { TripsService } from '../../services/trips/trips.service';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { ShoppingCart } from '../../models/ShoppingCart';
 
 
 interface SelectedTrip extends Trip {
@@ -52,6 +53,7 @@ export class CartComponent implements OnInit {
     }
 
     handleCancel() {
+        this.shoppingService.shoppingCart$.next(ShoppingCart.emptyShoppingCart);
         this.router.navigate([ '/trips' ]);
     }
 

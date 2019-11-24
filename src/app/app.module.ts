@@ -6,6 +6,13 @@ import { AppComponent } from './components/app/app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TripComponent } from './components/trip/trip.component';
 import { TripsComponent } from './components/trips/trips.component';
+import { AddTripComponent } from './components/add-trip/add-trip.component';
+import { MatToolbarModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule, MatCardModule } from '@angular/material';
+import { SignupFormComponent } from './components/signup-form/signup-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HeaderComponent } from './components/header/header.component';
+import { CartComponent } from './components/cart/cart.component';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 
 
 @NgModule({
@@ -13,11 +20,25 @@ import { TripsComponent } from './components/trips/trips.component';
         AppComponent,
         TripComponent,
         TripsComponent,
+        AddTripComponent,
+        SignupFormComponent,
+        HeaderComponent,
+        CartComponent,
+        ConfirmationComponent,
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
+        MatToolbarModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        MatProgressSpinnerModule,
+        MatCardModule,
     ],
     providers: [],
     bootstrap: [ AppComponent ],

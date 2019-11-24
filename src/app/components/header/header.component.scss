@@ -1,0 +1,13 @@
+.link {
+    text-decoration: none;
+    color: #fafafa;
+    padding: 0.5em;
+
+    &.logo {
+        margin-right: auto;
+    }
+
+    &:hover, &.active {
+        color: rgba(255, 255, 255, 0.7);
+    }
+}

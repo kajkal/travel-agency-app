@@ -1,0 +1,30 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+
+        <a class="link logo" routerLink="/">
+            Travel Agency App
+        </a>
+
+        <a mat-button class="link" routerLink="/login" routerLinkActive="active">
+            Login
+        </a>
+
+        <a mat-button class="link" routerLink="/trips" routerLinkActive="active">
+            Trips
+        </a>
+
+        <a mat-button class="link" [routerLink]="['/trips', 1]" [queryParams]="{page: 1}">
+            Trip 1
+        </a>
+
+        <a mat-button class="link" routerLink="/confirmation" routerLinkActive="active">
+            Confirmation
+        </a>
+
+        <a mat-button class="link" routerLink="/cart" routerLinkActive="active">
+            <span>{{ selectedPlacesCount$ | async }}</span>
+            <mat-icon>shopping_cart</mat-icon>
+        </a>
+
+    </mat-toolbar-row>
+</mat-toolbar>

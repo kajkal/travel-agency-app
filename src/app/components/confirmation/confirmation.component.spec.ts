@@ -1,26 +1,26 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SignupFormComponent } from './signup-form.component';
+import { ConfirmationComponent } from './confirmation.component';
 
 
-describe('SignupFormComponent', () => {
-    let component: SignupFormComponent;
-    let fixture: ComponentFixture<SignupFormComponent>;
+describe('ConfirmationComponent', () => {
+    let component: ConfirmationComponent;
+    let fixture: ComponentFixture<ConfirmationComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ SignupFormComponent ],
+            declarations: [ ConfirmationComponent ],
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(SignupFormComponent);
+        fixture = TestBed.createComponent(ConfirmationComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
 
-    it('should be created', () => {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

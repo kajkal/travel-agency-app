@@ -1,0 +1,52 @@
+<section class="cart-summary">
+
+    <mat-card>
+        <mat-list role="list">
+
+            <mat-list-item role="listitem">
+                <div class="data-row header">
+                    <span>Trip Name</span>
+                    <span>Price</span>
+                    <span>Selected places count</span>
+                    <span>Total Price</span>
+                </div>
+            </mat-list-item>
+
+            <mat-list-item *ngFor="let trip of selectedTrips | async" role="listitem">
+                <div class="data-row">
+                    <span>{{ trip.name }}</span>
+                    <span>{{ trip.price | currency:'EUR' }}</span>
+                    <span>{{ trip.selectedPlacesCount }}</span>
+                    <span>{{ trip.selectedPlacesCount * trip.price | currency:'EUR' }}</span>
+                </div>
+            </mat-list-item>
+
+            <mat-list-item role="listitem">
+                <div class="data-row summary">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span>{{ totalTotalPrice | async | currency:'EUR' }}</span>
+                </div>
+            </mat-list-item>
+
+        </mat-list>
+
+        <mat-card-actions align="end">
+            <button
+                mat-raised-button color="warn"
+                (click)="handleCancel()"
+            >
+                Cancel
+            </button>
+            <button
+                mat-raised-button color="primary"
+                [disabled]="(totalTotalPrice | async) === 0"
+                (click)="handleProceed()"
+            >
+                Proceed
+            </button>
+        </mat-card-actions>
+    </mat-card>
+
+</section>

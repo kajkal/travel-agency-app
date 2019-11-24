@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Trip } from '../../models/Trip';
+import { BehaviorSubject, of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 
 @Injectable({
@@ -98,19 +100,28 @@ export class TripsService {
         },
     ];
 
-    getTrips(): Trip[] {
-        return this.trips;
+    trips$: BehaviorSubject<Trip[]>;
+
+    constructor() {
+        this.trips$ = new BehaviorSubject<Trip[]>([]);
+        of(this.trips)
+            .pipe(
+                delay(200),
+            )
+            .subscribe(value => {
+                this.trips$.next(value);
+            });
     }
 
     getTrip(tripId: string): Trip | undefined {
-        return this.trips.find(trip => trip.id === tripId);
+        return this.trips$.value.find(trip => trip.id === tripId);
     }
 
     addTrip(trip: Trip): void {
     }
 
     deleteTrip(tripToDelete: Trip) {
-        this.trips = this.trips.filter(trip => tripToDelete.id !== trip.id);
+        this.trips$.next(this.trips$.value.filter(trip => tripToDelete.id !== trip.id));
     }
 
 }

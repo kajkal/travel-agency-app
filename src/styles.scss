@@ -10,3 +10,28 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     background-color: #fafafa;
 }
+
+.form-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .form-card {
+        width: 500px;
+
+        .mat-card-title {
+            font-weight: 300;
+        }
+
+        .mat-card-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mat-card-actions {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+    }
+}

@@ -40,10 +40,10 @@ export class TripComponent implements OnInit {
         ])
             .pipe(
                 switchMap(combined => {
-                    const id = combined[0].get('tripId');
-                    const pageNr = combined[1].get('page');
+                    const id = combined[ 0 ].get('tripId');
+                    const pageNr = combined[ 1 ].get('page');
 
-                    console.log({id, pageNr});
+                    console.log({ id, pageNr });
 
                     // call http service
                     return of({
@@ -52,13 +52,13 @@ export class TripComponent implements OnInit {
                 }),
             )
             .subscribe(trips => {
-                console.log({trips});
+                console.log({ trips });
             });
     }
 
     handleClick() {
         console.log('clicked');
-        this.router.navigate(['/trips']);
+        this.router.navigate([ '/trips' ]);
         // this.router.navigate(['/trips'], {
         //     queryParams: {page: 2, order: 'newest'},
         // });

@@ -1,0 +1,10 @@
+.data-row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1em;
+
+    &.header, &.summary {
+        font-weight: bold;
+    }
+}

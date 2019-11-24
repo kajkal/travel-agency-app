@@ -26,6 +26,10 @@ const routes: Routes = [
         component: TripsComponent,
     },
     {
+        path: 'new-trip',
+        component: AddTripComponent,
+    },
+    {
         path: 'cart',
         component: CartComponent,
     },

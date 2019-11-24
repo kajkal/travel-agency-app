@@ -1,26 +1,26 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SignupFormComponent } from './signup-form.component';
+import { TripThumbnailComponent } from './trip-thumbnail.component';
 
 
-describe('SignupFormComponent', () => {
-    let component: SignupFormComponent;
-    let fixture: ComponentFixture<SignupFormComponent>;
+describe('TripThumbnailComponent', () => {
+    let component: TripThumbnailComponent;
+    let fixture: ComponentFixture<TripThumbnailComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ SignupFormComponent ],
+            declarations: [ TripThumbnailComponent ],
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(SignupFormComponent);
+        fixture = TestBed.createComponent(TripThumbnailComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
 
-    it('should be created', () => {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

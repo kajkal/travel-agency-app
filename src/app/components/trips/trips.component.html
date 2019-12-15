@@ -1,4 +1,25 @@
-<section class="trips">
-    <app-trip-thumbnail *ngFor="let trip of trips | async" [trip]="trip" (delete)="handleRemove(trip)">
-    </app-trip-thumbnail>
-</section>
+<mat-drawer-container class="example-container">
+
+    <mat-drawer mode="side" opened>
+        <h5 class="filters-header">Filters</h5>
+
+        <div class="filter-container price-filter">
+            <h6>Price</h6>
+            <ng5-slider
+                [(value)]="minValue"
+                [(highValue)]="maxValue"
+                (userChange)="handlePriceFilterChange($event)"
+                [options]="options"
+            ></ng5-slider>
+        </div>
+
+    </mat-drawer>
+
+    <mat-drawer-content>
+        <section class="trips">
+            <app-trip-thumbnail *ngFor="let trip of trips | async" [trip]="trip" (delete)="handleRemove(trip)">
+            </app-trip-thumbnail>
+        </section>
+    </mat-drawer-content>
+
+</mat-drawer-container>

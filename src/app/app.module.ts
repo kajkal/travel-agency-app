@@ -14,6 +14,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 import { TripThumbnailComponent } from './components/trip-thumbnail/trip-thumbnail.component';
+import { MatSidenavModule } from '@angular/material';
+import { Ng5SliderModule } from 'ng5-slider';
 
 
 @NgModule({
@@ -44,6 +46,8 @@ import { TripThumbnailComponent } from './components/trip-thumbnail/trip-thumbna
         MatDatepickerModule,
         MatNativeDateModule,
         MatListModule,
+        MatSidenavModule,
+        Ng5SliderModule,
     ],
     providers: [],
     bootstrap: [ AppComponent ],

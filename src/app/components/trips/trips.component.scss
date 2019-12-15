@@ -1,7 +1,33 @@
-.trips {
-    list-style: none;
+.mat-drawer {
+    min-width: 200px;
     padding: 1em;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-gap: 1em;
+
+    .filters-header {
+        padding-bottom: 1em;
+    }
+
+    .filter-container {
+        min-height: 15em;
+        display: flex;
+        flex-direction: column;
+
+        h5 {
+            text-align: center;
+        }
+
+        ng5-slider {
+            flex-grow: 1;
+        }
+    }
+}
+
+.mat-drawer-content {
+    .trips {
+        height: calc(100vh - 64px);
+        list-style: none;
+        padding: 1em;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-gap: 1em;
+    }
 }

@@ -1,4 +1,4 @@
-<mat-drawer-container class="example-container">
+<mat-drawer-container class="example-container" autosize>
 
     <mat-drawer mode="side" opened>
         <h5 class="filters-header">Filters</h5>
@@ -13,11 +13,16 @@
             ></ng5-slider>
         </div>
 
+        <div class="filter-container rate-filter">
+            <h6>Rate</h6>
+            <app-rate [rating]="minRating" (rateSelect)="handleRateFilterChange($event)"></app-rate>
+        </div>
+
     </mat-drawer>
 
     <mat-drawer-content>
         <section class="trips">
-            <app-trip-thumbnail *ngFor="let trip of trips | async" [trip]="trip" (delete)="handleRemove(trip)">
+            <app-trip-thumbnail *ngFor="let trip of trips | async" [trip]="trip" (delete)="handleRemove(trip)" (changeRating)="handleRateChange($event)">
             </app-trip-thumbnail>
         </section>
     </mat-drawer-content>

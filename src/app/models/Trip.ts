@@ -18,4 +18,6 @@ export interface Trip {
 
     thumbnailUrl: string;
 
+    rating: number;
+
 }

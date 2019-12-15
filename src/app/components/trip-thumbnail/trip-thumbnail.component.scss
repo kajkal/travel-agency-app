@@ -2,55 +2,88 @@
     color: inherit;
     text-decoration: inherit;
 
-    .mat-card {
-        height: 100%;
+    .mat-card-content {
         display: flex;
-        flex-direction: column;
 
-        .mat-card-content {
-            margin: auto 0;
-        }
-    }
-
-    .price-indicator {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        .low {
-            color: green;
+        .image-container {
+            padding: 15em;
+            margin-right: 1em;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
 
-        .med {
-            color: orange;
-        }
+        .trip-details {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
 
-        .high {
-            color: red;
-        }
-    }
+            .description {
+                flex-grow: 1;
+                text-align: center;
+            }
 
-    .mat-card-actions {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
+            .actions {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
 
-        .available {
-            margin-right: auto;
-
-            .limit {
-                &.low {
-                    color: red;
+                span {
+                    padding: 0 1em;
                 }
 
-                &.med {
-                    color: orange;
-                }
+                .available {
+                    margin-right: auto;
 
-                &.high {
-                    color: green;
+                    .limit {
+                        &.low {
+                            color: red;
+                        }
+
+                        &.med {
+                            color: orange;
+                        }
+
+                        &.high {
+                            color: green;
+                        }
+                    }
                 }
             }
         }
     }
+
+    app-rate, mat-card-title, mat-card-subtitle {
+        align-self: center;
+        text-align: center;
+    }
+
+    .price {
+        &.low {
+            color: green;
+        }
+
+        &.med {
+            color: orange;
+        }
+
+        &.high {
+            color: red;
+        }
+    }
+
+    &:hover .actions {
+        button {
+            opacity: 1;
+            transition: all 0.3s ease-in;
+        }
+    }
+
+    &:not(:hover) .actions {
+        button {
+            opacity: 0;
+            transition: all 0.3s ease-in;
+        }
+    }
+
 }

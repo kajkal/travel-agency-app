@@ -35,6 +35,8 @@ export class TripsComponent implements OnInit {
         vertical: true,
     };
 
+    minRating = 1;
+
     constructor(private tripsService: TripsService, private shoppingService: ShoppingService) {
     }
 
@@ -78,6 +80,10 @@ export class TripsComponent implements OnInit {
         this.shoppingService.shoppingCart$.next(shoppingCart);
     }
 
+    handleRateChange(updatedTrip: Trip) {
+        this.tripsService.updateTrip(updatedTrip);
+    }
+
     handlePriceFilterChange(changeContext: ChangeContext) {
         console.log('handlePriceFilter', {min: changeContext.value, max: changeContext.highValue});
 
@@ -85,6 +91,18 @@ export class TripsComponent implements OnInit {
             .pipe(
                 map(trips => trips.filter(trip => (
                     trip.price >= this.minValue && trip.price <= this.maxValue
+                ))),
+            );
+    }
+
+    handleRateFilterChange(newMinRating: number) {
+        console.log('handleRateFilterChange', {newMinRating});
+
+        this.minRating = newMinRating;
+        this.filteredTrips$ = this.filteredTrips$
+            .pipe(
+                map(trips => trips.filter(trip => (
+                    trip.rating >= this.minRating
                 ))),
             );
     }

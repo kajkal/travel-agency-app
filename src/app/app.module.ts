@@ -16,6 +16,7 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
 import { TripThumbnailComponent } from './components/trip-thumbnail/trip-thumbnail.component';
 import { MatSidenavModule } from '@angular/material';
 import { Ng5SliderModule } from 'ng5-slider';
+import { RateComponent } from './components/rate/rate.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { Ng5SliderModule } from 'ng5-slider';
         CartComponent,
         ConfirmationComponent,
         TripThumbnailComponent,
+        RateComponent,
     ],
     imports: [
         BrowserModule,

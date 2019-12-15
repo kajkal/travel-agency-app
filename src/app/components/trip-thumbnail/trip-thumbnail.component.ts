@@ -15,6 +15,8 @@ export class TripThumbnailComponent implements OnInit {
 
     @Output() delete = new EventEmitter();
 
+    @Output() changeRating = new EventEmitter();
+
     constructor(private shoppingService: ShoppingService) {
     }
 
@@ -55,6 +57,13 @@ export class TripThumbnailComponent implements OnInit {
     onDelete($event, tripToDelete: Trip): void {
         this.preventNavigation($event);
         this.delete.emit(tripToDelete);
+    }
+
+    onRateSelect($event, tripToUpdate) {
+        this.changeRating.emit({
+            ...tripToUpdate,
+            rating: $event,
+        });
     }
 
 }

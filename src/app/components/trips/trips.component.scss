@@ -2,11 +2,8 @@
     min-width: 200px;
     padding: 1em;
 
-    .filters-header {
-        padding-bottom: 1em;
-    }
-
     .filter-container {
+        padding-top: 1em;
         min-height: 15em;
         display: flex;
         flex-direction: column;
@@ -24,10 +21,10 @@
 .mat-drawer-content {
     .trips {
         height: calc(100vh - 64px);
-        list-style: none;
         padding: 1em;
+
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(800px, 1fr));
         grid-gap: 1em;
     }
 }

@@ -1,0 +1,21 @@
+<div class="rating">
+
+    <mat-icon
+        *ngFor="let i of filledStarsCount"
+        (mouseover)='hoverRating = i+1'
+        (mouseleave)="hoverRating = rating"
+        (click)="onRateSelect($event)"
+    >
+        star
+    </mat-icon>
+
+    <mat-icon
+        *ngFor="let i of emptyStarsCount"
+        (mouseover)='hoverRating = i+1'
+        (mouseleave)="hoverRating = rating"
+        (click)="onRateSelect($event)"
+    >
+        star_border
+    </mat-icon>
+
+</div>

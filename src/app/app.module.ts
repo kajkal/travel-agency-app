@@ -17,6 +17,8 @@ import { TripThumbnailComponent } from './components/trip-thumbnail/trip-thumbna
 import { MatSidenavModule } from '@angular/material';
 import { Ng5SliderModule } from 'ng5-slider';
 import { RateComponent } from './components/rate/rate.component';
+import { NoAccessComponent } from './components/no-access/no-access.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
 @NgModule({
@@ -31,6 +33,8 @@ import { RateComponent } from './components/rate/rate.component';
         ConfirmationComponent,
         TripThumbnailComponent,
         RateComponent,
+        NoAccessComponent,
+        NotFoundComponent,
     ],
     imports: [
         BrowserModule,

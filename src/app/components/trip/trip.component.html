@@ -1,1 +1,46 @@
-<p>trip works!</p>
+<mat-card class="trip-details">
+    <mat-card-content *ngIf="trip !== null">
+
+        <app-rate [rating]="trip.rating"></app-rate>
+        <mat-card-title>{{ trip.name }}</mat-card-title>
+
+        <mat-card-subtitle>
+            <span>{{ trip.startDate | date }}</span>
+            <span style="padding: 0.5em">-</span>
+            <span>{{ trip.endDate | date }}</span>
+            <div class="price">{{ trip.price | currency:'EUR' }}</div>
+        </mat-card-subtitle>
+
+        <p class="description">{{ trip.description }}</p>
+
+        <span [style.color]="getReservedPlacesCount(trip) === 0 ? '#ccc' : 'inherit'">
+            Reserved places: {{ getReservedPlacesCount(trip) }}
+        </span>
+
+        <div class="add-comment" *ngIf="getReservedPlacesCount(trip) > 0">
+            <form novalidate [formGroup]="form" (ngSubmit)="addComment()">
+                <mat-form-field>
+                    <textarea
+                        matInput cdkTextareaAutosize
+                        placeholder="Add comment"
+                        formControlName="comment" id="comment"
+                    ></textarea>
+
+                    <mat-error *ngIf="comment.invalid">
+                        <span *ngIf="comment.errors.required">Comment is required.</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <button
+                    class="add-comment-btn"
+                    mat-raised-button
+                    color="primary"
+                    [disabled]="form.invalid"
+                >
+                    Publish comment
+                </button>
+            </form>
+        </div>
+
+    </mat-card-content>
+</mat-card>

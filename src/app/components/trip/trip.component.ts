@@ -4,6 +4,8 @@ import { combineLatest, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Trip } from '../../models/Trip';
 import { TripsService } from '../../services/trips/trips.service';
+import { ShoppingService } from '../../services/shopping/shopping.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -13,19 +15,29 @@ import { TripsService } from '../../services/trips/trips.service';
 })
 export class TripComponent implements OnInit {
 
-    @Input()
-    trip: Trip;
+    public form: FormGroup;
+    trip: Trip = null;
 
-    constructor(private route: ActivatedRoute, private router: Router, private tripsService: TripsService) {
+    constructor(private route: ActivatedRoute, private router: Router, private tripsService: TripsService, private shoppingService: ShoppingService) {
     }
 
     ngOnInit() {
         const tripId: string = this.route.snapshot.paramMap.get('tripId');
 
-        if (!this.tripsService.getTrip(tripId)) {
-            console.log(`No trip with id ${tripId} found`);
-            this.router.navigate([ '/trips' ]);
-        }
+        this.tripsService.getTripDetails(tripId)
+            .subscribe(trip => {
+                if (!trip) {
+                    console.log(`No trip with id ${tripId} found`);
+                    this.router.navigate([ '/trips' ]);
+                } else {
+                    this.trip = trip;
+                }
+            });
+
+        this.form = new FormGroup({
+            comment: new FormControl('', [ Validators.required ]),
+        });
+
         //
         // // this.route.paramMap
         // //     .subscribe(params => {
@@ -59,6 +71,18 @@ export class TripComponent implements OnInit {
         //     .subscribe(trips => {
         //         console.log({ trips });
         //     });
+    }
+
+    get comment() {
+        return this.form.get('comment');
+    }
+
+    addComment() {
+        console.log('createTrip', this.form.value);
+    }
+
+    getReservedPlacesCount(trip: Trip): number {
+        return this.shoppingService.shoppingCart$.value.trips.get(trip.id) || 0;
     }
 
 }

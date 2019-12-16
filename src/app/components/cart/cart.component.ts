@@ -31,7 +31,7 @@ export class CartComponent implements OnInit {
                 map(shoppingCart => (
                     Array.from(shoppingCart.trips.entries())
                         .map(([ tripId, selectedPlacesCount ]) => {
-                            const trip = this.tripsService.getTrip(tripId);
+                            const trip = this.findTrip(tripId);
                             return trip ? { ...trip, selectedPlacesCount } : undefined;
                         })
                         .filter(Boolean)
@@ -45,11 +45,16 @@ export class CartComponent implements OnInit {
                 map(shoppingCart => (
                     Array.from(shoppingCart.trips.entries())
                         .reduce((accumulator, [ tripId, selectedPlacesCount ]) => {
-                            const trip: Trip | undefined = this.tripsService.getTrip(tripId);
+                            const trip: Trip | undefined = this.findTrip(tripId);
                             return accumulator + (trip ? trip.price : 0) * selectedPlacesCount;
                         }, 0)
                 )),
             );
+    }
+
+    private findTrip(tripId: string): Trip | undefined {
+        const trips = this.tripsService.trips$.value;
+        return trips.find(trip => trip.id === tripId);
     }
 
     handleCancel() {

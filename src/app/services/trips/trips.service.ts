@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Trip } from '../../models/Trip';
-import { BehaviorSubject, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, timer } from 'rxjs';
+import { delay, filter, map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -121,8 +121,9 @@ export class TripsService {
             });
     }
 
-    getTrip(tripId: string): Trip | undefined {
-        return this.trips$.value.find(trip => trip.id === tripId);
+    getTripDetails(tripId: string): Observable<Trip> {
+        return timer(200)
+            .pipe(map(_ => this.trips$.value.find(trip => trip.id === tripId)));
     }
 
     addTrip(trip: Trip): void {

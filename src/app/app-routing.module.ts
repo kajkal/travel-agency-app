@@ -6,6 +6,8 @@ import { AddTripComponent } from './components/add-trip/add-trip.component';
 import { TripComponent } from './components/trip/trip.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { NoAccessComponent } from './components/no-access/no-access.component';
 
 
 const routes: Routes = [
@@ -36,6 +38,14 @@ const routes: Routes = [
     {
         path: 'confirmation',
         component: ConfirmationComponent,
+    },
+    {
+        path: 'not-found',
+        component: NotFoundComponent,
+    },
+    {
+        path: 'no-access',
+        component: NoAccessComponent,
     },
 ];
 

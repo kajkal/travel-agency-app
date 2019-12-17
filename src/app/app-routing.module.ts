@@ -1,51 +1,61 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { TripsComponent } from './components/trips/trips.component';
-import { SignupFormComponent } from './components/signup-form/signup-form.component';
 import { AddTripComponent } from './components/add-trip/add-trip.component';
 import { TripComponent } from './components/trip/trip.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
-import { NoAccessComponent } from './components/no-access/no-access.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { AuthGuard } from './guards/auth/auth.guard';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 
 const routes: Routes = [
     {
         path: '',
-        component: AddTripComponent,
+        redirectTo: '/sign-in',
+        pathMatch: 'full',
     },
     {
-        path: 'login',
-        component: SignupFormComponent,
+        path: 'sign-in',
+        component: SignInComponent,
     },
     {
-        path: 'trips/:tripId',
-        component: TripComponent,
+        path: 'sign-up',
+        component: SignUpComponent,
     },
     {
         path: 'trips',
-        component: TripsComponent,
-    },
-    {
-        path: 'new-trip',
-        component: AddTripComponent,
+        canActivate: [ AuthGuard ],
+        children: [
+            {
+                path: '',
+                component: TripsComponent,
+            },
+            {
+                path: ':tripId',
+                component: TripComponent,
+            },
+        ],
     },
     {
         path: 'cart',
+        canActivate: [ AuthGuard ],
         component: CartComponent,
     },
     {
         path: 'confirmation',
+        canActivate: [ AuthGuard ],
         component: ConfirmationComponent,
     },
     {
-        path: 'not-found',
-        component: NotFoundComponent,
-    },
-    {
-        path: 'no-access',
-        component: NoAccessComponent,
+        path: 'admin',
+        children: [
+            {
+                path: 'new-trip',
+                component: AddTripComponent,
+            },
+        ],
     },
 ];
 

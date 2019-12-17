@@ -11,16 +11,35 @@ body {
     background-color: #fafafa;
 }
 
+
+@media (max-width: 600px) {
+    :root {
+        --spacer: 1rem;
+        --frame: 1rem;
+    }
+}
+
+@media (min-width: 600px) {
+    :root {
+        --spacer: 2rem;
+        --frame: 4rem;
+    }
+}
+
 .form-section {
+    margin: var(--frame);
+
     display: flex;
     align-items: center;
     justify-content: center;
 
     .form-card {
+        padding: var(--spacer);
         width: 500px;
 
         .mat-card-title {
             font-weight: 300;
+            margin-bottom: var(--spacer);
         }
 
         .mat-card-content {
@@ -32,6 +51,11 @@ body {
             display: flex;
             justify-content: flex-end;
             align-items: center;
+            margin-left: 0;
+
+            .form-error-message {
+                margin-right: auto;
+            }
         }
     }
 }

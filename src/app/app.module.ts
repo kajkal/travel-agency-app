@@ -7,8 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TripComponent } from './components/trip/trip.component';
 import { TripsComponent } from './components/trips/trips.component';
 import { AddTripComponent } from './components/add-trip/add-trip.component';
-import { MatToolbarModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatListModule } from '@angular/material';
-import { SignupFormComponent } from './components/signup-form/signup-form.component';
+import { MatToolbarModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatProgressBarModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
 import { CartComponent } from './components/cart/cart.component';
@@ -17,8 +16,14 @@ import { TripThumbnailComponent } from './components/trip-thumbnail/trip-thumbna
 import { MatSidenavModule } from '@angular/material';
 import { Ng5SliderModule } from 'ng5-slider';
 import { RateComponent } from './components/rate/rate.component';
-import { NoAccessComponent } from './components/no-access/no-access.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 
 @NgModule({
@@ -27,14 +32,14 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
         TripComponent,
         TripsComponent,
         AddTripComponent,
-        SignupFormComponent,
         HeaderComponent,
         CartComponent,
         ConfirmationComponent,
         TripThumbnailComponent,
         RateComponent,
-        NoAccessComponent,
         NotFoundComponent,
+        SignInComponent,
+        SignUpComponent,
     ],
     imports: [
         BrowserModule,
@@ -54,6 +59,12 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
         MatListModule,
         MatSidenavModule,
         Ng5SliderModule,
+        HttpClientModule,
+
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFireAuthModule,
+        AngularFireDatabaseModule,
+        MatProgressBarModule,
     ],
     providers: [],
     bootstrap: [ AppComponent ],

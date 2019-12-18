@@ -8,6 +8,7 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { AuthGuard } from './guards/auth/auth.guard';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { AdminGuard } from './guards/admin/admin.guard';
 
 
 const routes: Routes = [
@@ -50,6 +51,7 @@ const routes: Routes = [
     },
     {
         path: 'admin',
+        canActivate: [ AdminGuard ],
         children: [
             {
                 path: 'new-trip',

@@ -1,7 +1,10 @@
+<button mat-button class="toggle-sidenav" (click)="toggleFilters()">
+    Filters
+</button>
+
 <mat-drawer-container class="example-container" autosize>
 
-    <mat-drawer mode="side" opened>
-        <h5 class="filters-header">Filters</h5>
+    <mat-drawer mode="side" #sidenav opened>
 
         <div class="filter-container price-filter">
             <h6>Price</h6>

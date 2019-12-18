@@ -1,6 +1,6 @@
 export interface TripComment {
 
-    timestamp: number;
+    timestamp: string;
 
     author: string;
 
@@ -12,7 +12,7 @@ export interface TripRating {
 
     value: number;
 
-    votesCount: number;
+    votes: string[];
 
 }
 
@@ -43,3 +43,7 @@ export interface Trip {
 }
 
 export type NewTrip = Omit<Trip, 'key'>;
+
+export interface SelectedTrip extends Trip {
+    selectedPlacesCount: number;
+}

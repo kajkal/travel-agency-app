@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingService } from '../../services/shopping/shopping.service';
-import { Observable } from 'rxjs';
-import { Trip } from '../../models/Trip';
+import { combineLatest, Observable } from 'rxjs';
+import { SelectedTrip, Trip } from '../../models/Trip';
 import { TripsService } from '../../services/trips/trips.service';
-import { map } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ShoppingCart } from '../../models/ShoppingCart';
 
 
-interface SelectedTrip extends Trip {
-    selectedPlacesCount: number;
-}
+
 
 @Component({
     selector: 'app-cart',
@@ -19,42 +17,40 @@ interface SelectedTrip extends Trip {
 })
 export class CartComponent implements OnInit {
 
-    constructor(private tripsService: TripsService, private shoppingService: ShoppingService, private router: Router) {
+    public selectedTrips$: Observable<SelectedTrip[]>;
+    public totalTotalPrice$: Observable<number>;
+
+    constructor(
+        private tripsService: TripsService,
+        private shoppingService: ShoppingService,
+        private router: Router,
+    ) {
     }
 
     ngOnInit() {
-    }
-
-    get selectedTrips(): Observable<SelectedTrip[]> {
-        return this.shoppingService.shoppingCart$
+        this.selectedTrips$ = combineLatest(this.shoppingService.shoppingCart$, this.tripsService.trips$)
             .pipe(
-                map(shoppingCart => (
+                filter(([ _, trips ]) => Boolean(trips.length)),
+                map(([ shoppingCart, trips ]) => (
                     Array.from(shoppingCart.trips.entries())
                         .map(([ tripKey, selectedPlacesCount ]) => {
-                            const trip = this.findTrip(tripKey);
+                            const trip = trips.find(t => t.key === tripKey);
                             return trip ? { ...trip, selectedPlacesCount } : undefined;
                         })
                         .filter(Boolean)
                 )),
+                tap(v => console.log('selectedTrips$', v)),
             );
-    }
 
-    get totalTotalPrice(): Observable<number> {
-        return this.shoppingService.shoppingCart$
+        this.totalTotalPrice$ = this.selectedTrips$
             .pipe(
-                map(shoppingCart => (
-                    Array.from(shoppingCart.trips.entries())
-                        .reduce((accumulator, [ tripKey, selectedPlacesCount ]) => {
-                            const trip: Trip | undefined = this.findTrip(tripKey);
-                            return accumulator + (trip ? trip.price : 0) * selectedPlacesCount;
-                        }, 0)
+                map(selectedTrips => (
+                    selectedTrips.reduce((accumulator, selectedTrip) => (
+                        accumulator + (selectedTrip.price * selectedTrip.selectedPlacesCount)
+                    ), 0)
                 )),
+                tap(v => console.log('totalTotalPrice$', v)),
             );
-    }
-
-    private findTrip(tripKey: string): Trip | undefined {
-        const trips = this.tripsService.trips$.value;
-        return trips.find(trip => trip.id === tripKey);
     }
 
     handleCancel() {

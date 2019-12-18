@@ -12,21 +12,24 @@
                 </div>
             </mat-list-item>
 
-            <mat-list-item *ngFor="let trip of selectedTrips | async" role="listitem">
+            <mat-list-item *ngFor="let trip of selectedTrips$ | async" role="listitem">
                 <div class="data-row">
-                    <span>{{ trip.name }}</span>
+
+                    <a routerLink="/trips/{{ trip.key }}">{{ trip.name }}</a>
                     <span>{{ trip.price | currency:'EUR' }}</span>
                     <span>{{ trip.selectedPlacesCount }}</span>
                     <span>{{ trip.selectedPlacesCount * trip.price | currency:'EUR' }}</span>
                 </div>
             </mat-list-item>
 
+            <mat-divider></mat-divider>
+
             <mat-list-item role="listitem">
                 <div class="data-row summary">
                     <span></span>
                     <span></span>
                     <span></span>
-                    <span>{{ totalTotalPrice | async | currency:'EUR' }}</span>
+                    <span>{{ totalTotalPrice$ | async | currency:'EUR' }}</span>
                 </div>
             </mat-list-item>
 
@@ -41,7 +44,7 @@
             </button>
             <button
                 mat-raised-button color="primary"
-                [disabled]="(totalTotalPrice | async) === 0"
+                [disabled]="(totalTotalPrice$ | async) === 0"
                 (click)="handleProceed()"
             >
                 Proceed

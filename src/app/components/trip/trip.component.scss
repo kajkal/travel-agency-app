@@ -1,20 +1,5 @@
 .trip-details {
-    margin: 1em;
-}
-
-.add-comment {
-    margin-top: 4em;
-}
-
-.add-comment {
-    form {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .add-comment-btn {
-        align-self: flex-end;
-    }
+    margin: var(--frame);
 }
 
 .gallery {
@@ -30,9 +15,20 @@
         background-repeat: no-repeat;
         background-size: cover;
 
+        &:nth-child(1) {
+            background-position: bottom;
+            transform: rotate(180deg);
+        }
+
+        &:nth-child(3) {
+            background-position: top;
+            transform: rotate(180deg);
+        }
+
         &:nth-child(2) {
             background-position: top;
         }
+
         &:nth-child(4) {
             background-position: bottom;
         }
@@ -47,4 +43,34 @@
     position: absolute;
     top: 0;
     right: 0;
+}
+
+
+.comments {
+    margin-top: 2rem;
+
+    .comment {
+        .timestamp {
+            font-size: 0.8rem;
+            margin-left: 1rem;
+        }
+        .author {
+            font-style: italic;
+        }
+        .content {
+            margin-top: 0.2rem;
+        }
+    }
+
+    .add-comment {
+        margin-top: 2rem;
+
+        .mat-form-field {
+            width: 350px;
+        }
+
+        button {
+            margin-left: 1rem;
+        }
+    }
 }

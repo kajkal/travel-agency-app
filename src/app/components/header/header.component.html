@@ -29,6 +29,11 @@
 
             <mat-menu #menu="matMenu">
 
+                <button mat-menu-item routerLink="/admin/new-trip" *ngIf="user.isAdmin">
+                    <mat-icon>add</mat-icon>
+                    <span>Add Trip</span>
+                </button>
+
                 <button mat-menu-item routerLink="/trips">
                     <mat-icon>list</mat-icon>
                     <span>Trips</span>
@@ -40,34 +45,6 @@
                 </button>
 
             </mat-menu>
-
-            <ng-container *ngIf="user.isAdmin">
-
-                <button mat-icon-button [matMenuTriggerFor]="dev_menu">
-                    <mat-icon>build</mat-icon>
-                </button>
-
-                <mat-menu #dev_menu="matMenu">
-
-                    <button mat-menu-item routerLink="/admin/new-trip">
-                        <span>Add Trip</span>
-                    </button>
-
-                    <button mat-menu-item routerLink="/trips">
-                        <span>Trips</span>
-                    </button>
-
-                    <button mat-menu-item routerLink="/trips/1">
-                        <span>Trip 1</span>
-                    </button>
-
-                    <button mat-menu-item routerLink="/confirmation">
-                        <span>Confirmation</span>
-                    </button>
-
-                </mat-menu>
-
-            </ng-container>
 
         </ng-container>
 

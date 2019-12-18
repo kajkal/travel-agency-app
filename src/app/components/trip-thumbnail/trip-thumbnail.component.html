@@ -3,7 +3,7 @@
         <mat-card-content>
             <div class="image-container d-none d-lg-block" [style.background-image]="'url('+trip.thumbnailUrl+')'"></div>
             <div class="trip-details">
-                <app-rate mode="display" [ratingValue]="trip.rating.value" tooltip="{{trip.rating.votesCount}} votes"></app-rate>
+                <app-rate mode="display" [ratingValue]="trip.rating.value" tooltip="{{trip.rating.votes?.length || 0}} votes"></app-rate>
 
                 <mat-card-title>{{ trip.name }}</mat-card-title>
 

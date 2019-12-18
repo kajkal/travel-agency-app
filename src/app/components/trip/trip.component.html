@@ -40,42 +40,84 @@
         <p class="description">{{ trip.description }}</p>
 
         <div class="gallery">
-            <div class="image-container d-none d-lg-block" [style.background-image]="'url('+trip.thumbnailUrl+')'"></div>
-            <div class="image-container d-none d-lg-block" [style.background-image]="'url('+trip.thumbnailUrl+')'"></div>
-            <div class="image-container d-none d-lg-block" [style.background-image]="'url('+trip.thumbnailUrl+')'"></div>
-            <div class="image-container d-none d-lg-block" [style.background-image]="'url('+trip.thumbnailUrl+')'"></div>
+            <div class="image-container d-none d-lg-block"
+                [style.background-image]="'url('+trip.thumbnailUrl+')'"></div>
+            <div class="image-container d-none d-lg-block"
+                [style.background-image]="'url('+trip.thumbnailUrl+')'"></div>
+            <div class="image-container d-none d-lg-block"
+                [style.background-image]="'url('+trip.thumbnailUrl+')'"></div>
+            <div class="image-container d-none d-lg-block"
+                [style.background-image]="'url('+trip.thumbnailUrl+')'"></div>
         </div>
 
         <span [style.color]="getReservedPlacesCount(trip) === 0 ? '#ccc' : 'inherit'">
             Reserved places: {{ getReservedPlacesCount(trip) }}
         </span>
 
-        <div class="add-comment" *ngIf="getReservedPlacesCount(trip) > 0">
+        <mat-list class="comments">
 
-            <form novalidate [formGroup]="form" (ngSubmit)="addComment()">
-                <mat-form-field>
-                    <textarea
-                        matInput cdkTextareaAutosize
-                        placeholder="Add comment"
-                        formControlName="comment" id="comment"
-                    ></textarea>
+            <h3 mat-subheader>Comments</h3>
 
-                    <mat-error *ngIf="comment.invalid">
-                        <span *ngIf="comment.errors.required">Comment is required.</span>
-                    </mat-error>
-                </mat-form-field>
+            <mat-list-item *ngIf="!trip.comments || !trip.comments.length">
 
-                <button
-                    class="add-comment-btn"
-                    mat-raised-button
-                    color="primary"
-                    [disabled]="form.invalid"
-                >
-                    Publish comment
-                </button>
+                <mat-icon mat-list-icon>not_interested</mat-icon>
+
+                <p mat-line class="content">No comments yet.</p>
+
+            </mat-list-item>
+
+            <mat-list-item *ngFor="let comment of trip.comments" class="comment">
+
+                <mat-icon mat-list-icon>comment</mat-icon>
+
+                <div mat-line>
+                    <span class="author"> {{comment.author}}</span>
+                    <span class="timestamp"> {{comment.timestamp | date:'medium'}} </span>
+                </div>
+
+                <p mat-line class="content">{{comment.content}}</p>
+
+            </mat-list-item>
+
+            <form
+                *ngIf="getReservedPlacesCount(trip) > 0"
+                novalidate
+                [formGroup]="form"
+                (ngSubmit)="addComment(trip)"
+            >
+                <mat-list-item class="add-comment">
+
+                    <mat-icon mat-list-icon>add</mat-icon>
+
+                    <div mat-line>
+
+                        <mat-form-field>
+                            <input
+                                matInput
+                                type="text"
+                                placeholder="Add comment"
+                                formControlName="comment" id="comment"
+                            >
+
+                            <mat-error *ngIf="comment.invalid">
+                                <span *ngIf="comment.errors.required">Comment is required.</span>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <button
+                            mat-raised-button
+                            color="primary"
+                            [disabled]="form.invalid"
+                        >
+                            Add comment
+                        </button>
+
+                    </div>
+
+                </mat-list-item>
             </form>
 
-        </div>
+        </mat-list>
 
     </mat-card-content>
 </mat-card>

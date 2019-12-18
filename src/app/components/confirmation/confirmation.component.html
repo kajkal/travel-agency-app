@@ -1,1 +1,52 @@
-<p>confirmation works!</p>
+<section class="confirmation">
+
+    <mat-card>
+        <h3>Selected places:</h3>
+
+        <mat-list role="list">
+
+            <mat-list-item role="listitem">
+                <div class="data-row header">
+                    <span>Trip Name</span>
+                    <span>Price</span>
+                    <span>Selected places count</span>
+                    <span>Total Price</span>
+                </div>
+            </mat-list-item>
+
+            <mat-list-item *ngFor="let trip of selectedTrips$ | async" role="listitem">
+                <div class="data-row">
+
+                    <a routerLink="/trips/{{ trip.key }}">{{ trip.name }}</a>
+                    <span>{{ trip.price | currency:'EUR' }}</span>
+                    <span>{{ trip.selectedPlacesCount }}</span>
+                    <span>{{ trip.selectedPlacesCount * trip.price | currency:'EUR' }}</span>
+                </div>
+            </mat-list-item>
+
+        </mat-list>
+
+
+        <mat-card-actions align="end">
+
+            <button
+                mat-raised-button
+                color="warn"
+                (click)="back()"
+            >
+                Back
+            </button>
+
+            <button
+                mat-raised-button
+                color="primary"
+                (click)="confirm()"
+            >
+                Confirm
+            </button>
+
+        </mat-card-actions>
+
+    </mat-card>
+
+</section>

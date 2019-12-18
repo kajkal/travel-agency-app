@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { TripsService } from '../../services/trips/trips.service';
 import { Trip } from '../../models/Trip';
 import { Observable } from 'rxjs';
 import { ChangeContext, LabelType } from 'ng5-slider';
 import { filter, map } from 'rxjs/operators';
+import { MatSidenav } from '@angular/material';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { filter, map } from 'rxjs/operators';
     templateUrl: './trips.component.html',
     styleUrls: [ './trips.component.scss' ],
 })
-export class TripsComponent implements OnInit {
+export class TripsComponent implements OnInit, OnDestroy {
 
     private filteredTrips$: Observable<Trip[]>;
 
@@ -34,6 +35,9 @@ export class TripsComponent implements OnInit {
     };
 
     minRating = 1;
+
+    private media: MediaQueryList;
+    @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
 
     constructor(
         private tripsService: TripsService,
@@ -65,6 +69,17 @@ export class TripsComponent implements OnInit {
             });
 
         this.filteredTrips$ = this.tripsService.trips$;
+
+        this.media = window.matchMedia('(max-width: 960px)');
+        this.media.addEventListener
+            ? this.media.addEventListener('change', this.windowWidthListener)
+            : this.media.addListener(this.windowWidthListener);
+    }
+
+    ngOnDestroy() {
+        this.media.removeEventListener
+            ? this.media.removeEventListener('change', this.windowWidthListener)
+            : this.media.removeListener(this.windowWidthListener);
     }
 
     get trips(): Observable<Trip[]> {
@@ -89,9 +104,21 @@ export class TripsComponent implements OnInit {
         this.filteredTrips$ = this.filteredTrips$
             .pipe(
                 map(trips => trips.filter(trip => (
-                    trip.rating.value >= this.minRating || (!trip.rating.votesCount && this.minRating === 1)
+                    trip.rating.value >= this.minRating || (!trip.rating.votes.length && this.minRating === 1)
                 ))),
             );
+    }
+
+    private windowWidthListener = () => {
+        if (this.media.matches) {
+            this.sidenav.mode = 'over';
+        } else {
+            this.sidenav.mode = 'side';
+        }
+    }
+
+    toggleFilters() {
+        this.sidenav.toggle();
     }
 
 }

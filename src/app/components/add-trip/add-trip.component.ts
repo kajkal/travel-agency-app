@@ -87,7 +87,7 @@ export class AddTripComponent implements OnInit {
             thumbnailUrl,
             rating: {
                 value: 0,
-                votesCount: 0,
+                votes: [],
             },
             comments: [],
         };

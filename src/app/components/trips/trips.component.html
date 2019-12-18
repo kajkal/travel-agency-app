@@ -15,14 +15,14 @@
 
         <div class="filter-container rate-filter">
             <h6>Rate</h6>
-            <app-rate [rating]="minRating" (rateSelect)="handleRateFilterChange($event)"></app-rate>
+            <app-rate mode="select" [ratingValue]="minRating" (rateValueSelect)="handleRateFilterChange($event)"></app-rate>
         </div>
 
     </mat-drawer>
 
     <mat-drawer-content>
         <section class="trips">
-            <app-trip-thumbnail *ngFor="let trip of trips | async" [trip]="trip" (delete)="handleRemove(trip)" (changeRating)="handleRateChange($event)">
+            <app-trip-thumbnail *ngFor="let trip of trips | async" [trip]="trip">
             </app-trip-thumbnail>
         </section>
     </mat-drawer-content>

@@ -39,7 +39,7 @@ const routes: Routes = [
                 component: TripsComponent,
             },
             {
-                path: ':tripId',
+                path: ':tripKey',
                 component: TripComponent,
             },
         ],

@@ -1,21 +1,41 @@
-<div class="rating">
+<ng-container [ngSwitch]='mode'>
 
-    <mat-icon
-        *ngFor="let i of filledStarsCount"
-        (mouseover)='hoverRating = i+1'
-        (mouseleave)="hoverRating = rating"
-        (click)="onRateSelect($event)"
+    <div
+        *ngSwitchCase="'display'"
+        class="rating"
+        matTooltip="{{tooltip}}"
+        matTooltipPosition="after"
     >
-        star
-    </mat-icon>
 
-    <mat-icon
-        *ngFor="let i of emptyStarsCount"
-        (mouseover)='hoverRating = i+1'
-        (mouseleave)="hoverRating = rating"
-        (click)="onRateSelect($event)"
+        <mat-icon *ngFor="let i of filledStarsCount">star</mat-icon>
+
+        <mat-icon *ngFor="let i of emptyStarsCount">star_border</mat-icon>
+
+    </div>
+
+    <div
+        *ngSwitchCase="'select'"
+        class="rating"
     >
-        star_border
-    </mat-icon>
 
-</div>
+        <mat-icon
+            *ngFor="let i of filledStarsCount"
+            (mouseover)='hoverRating = i+1'
+            (mouseleave)="hoverRating = ratingValue"
+            (click)="onRateSelect($event)"
+        >
+            star
+        </mat-icon>
+
+        <mat-icon
+            *ngFor="let i of emptyStarsCount"
+            (mouseover)='hoverRating = i+1'
+            (mouseleave)="hoverRating = ratingValue"
+            (click)="onRateSelect($event)"
+        >
+            star_border
+        </mat-icon>
+
+    </div>
+
+</ng-container>

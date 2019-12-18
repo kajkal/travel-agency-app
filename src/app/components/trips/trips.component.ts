@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TripsService } from '../../services/trips/trips.service';
 import { Trip } from '../../models/Trip';
-import { ShoppingService } from '../../services/shopping/shopping.service';
-import { ShoppingCart } from '../../models/ShoppingCart';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { ChangeContext, LabelType, Options } from 'ng5-slider';
-import { filter, map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { ChangeContext, LabelType } from 'ng5-slider';
+import { filter, map } from 'rxjs/operators';
 
 
 @Component({
@@ -37,12 +35,12 @@ export class TripsComponent implements OnInit {
 
     minRating = 1;
 
-    constructor(private tripsService: TripsService, private shoppingService: ShoppingService) {
+    constructor(
+        private tripsService: TripsService,
+    ) {
     }
 
     ngOnInit() {
-        console.log(this.trips);
-
         this.tripsService.trips$
             .pipe(
                 map(trips => trips.map(trip => trip.price)),
@@ -73,19 +71,8 @@ export class TripsComponent implements OnInit {
         return this.filteredTrips$;
     }
 
-    handleRemove(trip: Trip) {
-        this.tripsService.deleteTrip(trip);
-        const shoppingCart: ShoppingCart = this.shoppingService.shoppingCart$.value;
-        shoppingCart.trips.delete(trip.id);
-        this.shoppingService.shoppingCart$.next(shoppingCart);
-    }
-
-    handleRateChange(updatedTrip: Trip) {
-        this.tripsService.updateTrip(updatedTrip);
-    }
-
     handlePriceFilterChange(changeContext: ChangeContext) {
-        console.log('handlePriceFilter', {min: changeContext.value, max: changeContext.highValue});
+        console.log('handlePriceFilter', { min: changeContext.value, max: changeContext.highValue });
 
         this.filteredTrips$ = this.filteredTrips$
             .pipe(
@@ -96,13 +83,13 @@ export class TripsComponent implements OnInit {
     }
 
     handleRateFilterChange(newMinRating: number) {
-        console.log('handleRateFilterChange', {newMinRating});
+        console.log('handleRateFilterChange', { newMinRating });
 
         this.minRating = newMinRating;
         this.filteredTrips$ = this.filteredTrips$
             .pipe(
                 map(trips => trips.filter(trip => (
-                    trip.rating >= this.minRating
+                    trip.rating.value >= this.minRating || (!trip.rating.votesCount && this.minRating === 1)
                 ))),
             );
     }

@@ -1,29 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TripsService } from '../../services/trips/trips.service';
+import { NewTrip } from '../../models/Trip';
+import { Router } from '@angular/router';
 
 
 @Component({
     selector: 'app-add-trip',
     templateUrl: './add-trip.component.html',
-    styleUrls: [ './add-trip.component.scss' ],
 })
 export class AddTripComponent implements OnInit {
 
     public form: FormGroup;
 
-    constructor() {
+    constructor(
+        private tripsService: TripsService,
+        private router: Router,
+    ) {
     }
 
     ngOnInit() {
         this.form = new FormGroup({
-            name: new FormControl('', [ Validators.required ]),
-            country: new FormControl('', [ Validators.required ]),
-            startDate: new FormControl('', [ Validators.required ]),
-            endDate: new FormControl('', [ Validators.required ]),
-            price: new FormControl('', [ Validators.required ]),
-            limit: new FormControl('', [ Validators.required ]),
-            description: new FormControl('', [ Validators.required ]),
-            thumbnailUrl: new FormControl('', [ Validators.required ]),
+            name: new FormControl('Trip name', [ Validators.required ]),
+            country: new FormControl('Poland', [ Validators.required ]),
+            startDate: new FormControl(new Date(), [ Validators.required ]),
+            endDate: new FormControl(new Date(), [ Validators.required ]),
+            price: new FormControl(1200, [ Validators.required ]),
+            freePlaces: new FormControl(20, [ Validators.required ]),
+            description: new FormControl('Trip description', [ Validators.required ]),
+            thumbnailUrl: new FormControl('https://cdn.pixabay.com/photo/2016/10/17/10/52/wind-farm-1747331_960_720.jpg', [ Validators.required ]),
         });
     }
 
@@ -47,8 +52,8 @@ export class AddTripComponent implements OnInit {
         return this.form.get('price');
     }
 
-    get limit() {
-        return this.form.get('limit');
+    get freePlaces() {
+        return this.form.get('freePlaces');
     }
 
     get description() {
@@ -59,8 +64,39 @@ export class AddTripComponent implements OnInit {
         return this.form.get('thumbnailUrl');
     }
 
-    createTrip() {
-        console.log('createTrip', this.form.value);
+    async createTrip() {
+        const {
+            name,
+            country,
+            startDate,
+            endDate,
+            price,
+            freePlaces,
+            description,
+            thumbnailUrl,
+        } = this.form.value;
+
+        const newTrip: NewTrip = {
+            name,
+            country,
+            startDate: new Date(startDate).toISOString(),
+            endDate: new Date(endDate).toISOString(),
+            price,
+            freePlaces,
+            description,
+            thumbnailUrl,
+            rating: {
+                value: 0,
+                votesCount: 0,
+            },
+            comments: [],
+        };
+
+        console.log('createTrip', {
+            form: this.form.value, newTrip,
+        });
+        await this.tripsService.addTrip(newTrip);
+        this.router.navigate([ '/trips' ]);
     }
 
 }

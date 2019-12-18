@@ -85,14 +85,14 @@
                 <mat-form-field>
                     <input
                         matInput type="number"
-                        placeholder="Limit"
-                        formControlName="limit" id="limit"
+                        placeholder="Free places"
+                        formControlName="freePlaces" id="freePlaces"
                     >
 
-                    <mat-error *ngIf="limit.invalid">
-                        <div>{{ limit.errors | json }}</div>
+                    <mat-error *ngIf="freePlaces.invalid">
+                        <div>{{ freePlaces.errors | json }}</div>
 
-                        <span *ngIf="limit.errors.required">Limit is required.</span>
+                        <span *ngIf="freePlaces.errors.required">Free places is required.</span>
                     </mat-error>
                 </mat-form-field>
 

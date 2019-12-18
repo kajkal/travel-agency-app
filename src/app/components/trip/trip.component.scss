@@ -16,3 +16,35 @@
         align-self: flex-end;
     }
 }
+
+.gallery {
+    margin: 1em 0;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-gap: 1em;
+
+    & > * {
+        height: 200px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        &:nth-child(2) {
+            background-position: top;
+        }
+        &:nth-child(4) {
+            background-position: bottom;
+        }
+    }
+}
+
+.mat-card {
+    position: relative;
+}
+
+.trip-actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+}

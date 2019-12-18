@@ -1,6 +1,24 @@
+export interface TripComment {
+
+    timestamp: number;
+
+    author: string;
+
+    content: string;
+
+}
+
+export interface TripRating {
+
+    value: number;
+
+    votesCount: number;
+
+}
+
 export interface Trip {
 
-    id: string;
+    key: string;
 
     name: string;
 
@@ -12,12 +30,16 @@ export interface Trip {
 
     price: number;
 
-    limit: number;
+    freePlaces: number;
 
     description: string;
 
     thumbnailUrl: string;
 
-    rating: number;
+    rating: TripRating;
+
+    comments?: TripComment[];
 
 }
+
+export type NewTrip = Omit<Trip, 'key'>;

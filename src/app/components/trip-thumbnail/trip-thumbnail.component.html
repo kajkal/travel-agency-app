@@ -1,9 +1,9 @@
-<a class="trip-thumbnail" routerLink="/trips/{{ trip.id }}">
+<a class="trip-thumbnail" routerLink="/trips/{{ trip.key }}">
     <mat-card>
         <mat-card-content>
             <div class="image-container d-none d-lg-block" [style.background-image]="'url('+trip.thumbnailUrl+')'"></div>
             <div class="trip-details">
-                <app-rate [rating]="trip.rating" (rateSelect)="onRateSelect($event, trip)"></app-rate>
+                <app-rate mode="display" [ratingValue]="trip.rating.value" tooltip="{{trip.rating.votesCount}} votes"></app-rate>
 
                 <mat-card-title>{{ trip.name }}</mat-card-title>
 
@@ -25,10 +25,10 @@
                     <div class="available">
                         Available:
                         <span class="limit" [ngClass]="{
-                        'low': trip.limit - getReservedPlacesCount(trip) < 3,
-                        'med': trip.limit - getReservedPlacesCount(trip) >= 3 && trip.limit - getReservedPlacesCount(trip) < 10,
-                        'high': trip.limit - getReservedPlacesCount(trip) >= 10
-                    }">{{ trip.limit - getReservedPlacesCount(trip) }}</span>
+                        'low': trip.freePlaces - getReservedPlacesCount(trip) < 3,
+                        'med': trip.freePlaces - getReservedPlacesCount(trip) >= 3 && trip.freePlaces - getReservedPlacesCount(trip) < 10,
+                        'high': trip.freePlaces - getReservedPlacesCount(trip) >= 10
+                    }">{{ trip.freePlaces - getReservedPlacesCount(trip) }}</span>
                     </div>
 
                     <button
@@ -48,18 +48,11 @@
                         class="increment-btn"
                         mat-button
                         (click)="handleAdd(trip)"
-                        [disabled]="getReservedPlacesCount(trip) === trip.limit"
+                        [disabled]="getReservedPlacesCount(trip) === trip.freePlaces"
                     >
                         <mat-icon>exposure_plus_1</mat-icon>
                     </button>
 
-                    <button
-                        class="delete-btn"
-                        mat-button
-                        (click)="onDelete($event, trip)"
-                    >
-                        <mat-icon>delete</mat-icon>
-                    </button>
                 </div>
             </div>
         </mat-card-content>

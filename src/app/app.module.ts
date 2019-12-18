@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TripComponent } from './components/trip/trip.component';
 import { TripsComponent } from './components/trips/trips.component';
 import { AddTripComponent } from './components/add-trip/add-trip.component';
-import { MatToolbarModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatProgressBarModule, MatMenuModule, MatBadgeModule } from '@angular/material';
+import { MatToolbarModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatProgressBarModule, MatMenuModule, MatBadgeModule, MatTooltipModule, MatGridListModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
 import { CartComponent } from './components/cart/cart.component';
@@ -69,6 +69,8 @@ import { LogoutComponent } from './components/logout/logout.component';
         MatProgressBarModule,
         MatMenuModule,
         MatBadgeModule,
+        MatTooltipModule,
+        MatGridListModule,
     ],
     providers: [],
     bootstrap: [ AppComponent ],

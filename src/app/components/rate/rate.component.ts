@@ -8,30 +8,38 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class RateComponent implements OnInit {
 
-    @Input() rating: number;
+    @Input() ratingValue: number;
 
-    @Output() rateSelect = new EventEmitter();
+    @Input() mode: 'display' | 'select';
+
+    @Input() tooltip = '';
+
+    @Output() rateValueSelect = new EventEmitter();
 
     hoverRating: number;
 
     get filledStarsCount() {
         const startIndex = 0;
-        return Array(...Array(this.hoverRating)).map((_, i) => startIndex + i);
+        return Array(...Array(this.n)).map((_, i) => startIndex + i);
     }
 
     get emptyStarsCount() {
         const startIndex = this.hoverRating;
-        return Array(...Array(5 - this.hoverRating)).map((_, i) => startIndex + i);
+        return Array(...Array(5 - this.n)).map((_, i) => startIndex + i);
     }
 
     ngOnInit() {
-        this.hoverRating = this.rating;
+        this.hoverRating = this.ratingValue;
     }
 
     onRateSelect($event): void {
         $event.stopPropagation();
         $event.preventDefault();
-        this.rateSelect.emit(this.hoverRating);
+        this.rateValueSelect.emit(this.hoverRating);
+    }
+
+    private get n(): number {
+        return parseInt.call(null, this.hoverRating);
     }
 
 }

@@ -3,6 +3,7 @@ import { map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { ShoppingService } from '../../services/shopping/shopping.service';
 import { ShoppingCart } from '../../models/ShoppingCart';
+import { AuthService } from '../../services/auth/auth.service';
 
 
 @Component({
@@ -10,11 +11,14 @@ import { ShoppingCart } from '../../models/ShoppingCart';
     templateUrl: './header.component.html',
     styleUrls: [ './header.component.scss' ],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
     private selectedPlacesCount$: Observable<number>;
 
-    constructor(shoppingService: ShoppingService) {
+    constructor(
+        private authService: AuthService,
+        private shoppingService: ShoppingService,
+    ) {
         this.selectedPlacesCount$ = shoppingService.shoppingCart$
             .pipe(
                 map((shoppingCart: ShoppingCart): number => (
@@ -24,7 +28,6 @@ export class HeaderComponent implements OnInit {
             );
     }
 
-    ngOnInit() {
-    }
+
 
 }

@@ -1,13 +1,26 @@
-.link {
-    text-decoration: none;
-    color: #fafafa;
-    padding: 0.5em;
+.mat-toolbar-row {
+    display: flex;
+    align-items: center;
 
-    &.logo {
+    & > * {
+        margin-left: 1em;
+    }
+
+    .logo {
         margin-right: auto;
     }
 
-    &:hover, &.active {
+    a {
+        display: flex;
+        align-items: center;
+
+        text-decoration: none;
+        color: #fafafa;
+        padding: 0.5em;
+        transition: color .1s ease-in;
+    }
+
+    a:hover, a.active {
         color: rgba(255, 255, 255, 0.7);
     }
 }

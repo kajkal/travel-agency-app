@@ -1,38 +1,71 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
 
-        <a class="link logo" routerLink="/">
+        <a class="logo" routerLink="/trips">
             Travel Agency App
         </a>
 
-        <a mat-button class="link" routerLink="/sign-in" routerLinkActive="active">
-            Sign in
-        </a>
+        <ng-container *ngIf="(authService.authState$ | async) === null">
 
-        <a mat-button class="link" routerLink="/sign-up" routerLinkActive="active">
-            Sign up
-        </a>
+            <a mat-button class="link" routerLink="/sign-in" routerLinkActive="active">
+                Sign in
+            </a>
 
-        <a mat-button class="link" routerLink="/admin/new-trip" routerLinkActive="active">
-            Add Trip
-        </a>
+            <a mat-button class="link" routerLink="/sign-up" routerLinkActive="active">
+                Sign up
+            </a>
 
-        <a mat-button class="link" routerLink="/trips" routerLinkActive="active">
-            Trips
-        </a>
+        </ng-container>
 
-        <a mat-button class="link" routerLink="/trips/1" routerLinkActive="active">
-            Trip 1
-        </a>
+        <ng-container *ngIf="(authService.authState$ | async) !== null">
 
-        <a mat-button class="link" routerLink="/confirmation" routerLinkActive="active">
-            Confirmation
-        </a>
+            <button mat-icon-button routerLink="/cart">
+                <mat-icon matBadge="{{ selectedPlacesCount$ | async }}" matBadgeColor="accent">shopping_cart</mat-icon>
+            </button>
 
-        <a mat-button class="link" routerLink="/cart" routerLinkActive="active">
-            <span>{{ selectedPlacesCount$ | async }}</span>
-            <mat-icon>shopping_cart</mat-icon>
-        </a>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+
+            <mat-menu #menu="matMenu">
+
+                <button mat-menu-item>
+                    <mat-icon>list</mat-icon>
+                    <span>Trips</span>
+                </button>
+
+                <button mat-menu-item routerLink="/logout">
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span>Logout</span>
+                </button>
+
+            </mat-menu>
+
+        </ng-container>
+
+        <button mat-icon-button [matMenuTriggerFor]="dev_menu">
+            <mat-icon>build</mat-icon>
+        </button>
+
+        <mat-menu #dev_menu="matMenu">
+
+            <button mat-menu-item routerLink="/admin/new-trip">
+                <span>Add Trip</span>
+            </button>
+
+            <button mat-menu-item routerLink="/trips">
+                <span>Trips</span>
+            </button>
+
+            <button mat-menu-item routerLink="/trips/1">
+                <span>Trip 1</span>
+            </button>
+
+            <button mat-menu-item routerLink="/confirmation">
+                <span>Confirmation</span>
+            </button>
+
+        </mat-menu>
 
     </mat-toolbar-row>
 </mat-toolbar>

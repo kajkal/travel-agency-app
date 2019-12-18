@@ -30,6 +30,10 @@
                             Provide valid email.
                         </span>
 
+                        <span *ngIf="email.errors.userNotFound">
+                            {{ email.errors.userNotFound }}
+                        </span>
+
                     </mat-error>
 
                 </mat-form-field>
@@ -54,6 +58,10 @@
                             Password should be minimum {{ password.errors.minlength.requiredLength }} characters.
                         </span>
 
+                        <span *ngIf="password.errors.wrongPassword">
+                            {{ password.errors.wrongPassword }}
+                        </span>
+
                     </mat-error>
 
                 </mat-form-field>
@@ -63,9 +71,9 @@
 
             <mat-card-actions>
 
-                <mat-error *ngIf="form?.errors?.badCredentials" class="form-error-message">
+                <mat-error *ngIf="form.errors?.tooManyRequests" class="form-error-message">
                     <span>
-                        The username or password is invalid.
+                        {{ form.errors.tooManyRequests }}
                     </span>
                 </mat-error>
 

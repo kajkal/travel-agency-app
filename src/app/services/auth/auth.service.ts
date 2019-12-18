@@ -22,8 +22,10 @@ export class AuthService {
 
     readonly authState$: Observable<UserWithRole | null>;
 
-    constructor(private db: AngularFireDatabase,
-                private fireAuth: AngularFireAuth) {
+    constructor(
+        private db: AngularFireDatabase,
+        private fireAuth: AngularFireAuth,
+    ) {
 
         this.authState$ = this.fireAuth.authState
             .pipe(

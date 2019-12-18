@@ -52,8 +52,18 @@ export class SignInComponent implements OnInit {
             .catch(error => {
                 console.log('signIn error', error);
                 if (error && error.code === 'auth/user-not-found') {
+                    this.email.setErrors({
+                        userNotFound: error.message,
+                    });
+                }
+                if (error && error.code === 'auth/wrong-password') {
+                    this.password.setErrors({
+                        wrongPassword: error.message,
+                    });
+                }
+                if (error && error.code === 'auth/too-many-requests') {
                     this.form.setErrors({
-                        badCredentials: true,
+                        tooManyRequests: error.message,
                     });
                 }
             })

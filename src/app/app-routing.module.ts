@@ -10,6 +10,7 @@ import { AuthGuard } from './guards/auth/auth.guard';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { AdminGuard } from './guards/admin/admin.guard';
 import { LogoutComponent } from './components/logout/logout.component';
+import { LoggedGuard } from './guards/logged/logged.guard';
 
 
 const routes: Routes = [
@@ -20,10 +21,12 @@ const routes: Routes = [
     },
     {
         path: 'sign-in',
+        canActivate: [ LoggedGuard ],
         component: SignInComponent,
     },
     {
         path: 'sign-up',
+        canActivate: [ LoggedGuard ],
         component: SignUpComponent,
     },
     {

@@ -1,6 +1,8 @@
 export class ShoppingCart {
 
-    static emptyShoppingCart: ShoppingCart = new ShoppingCart();
+    static get emptyShoppingCart(): ShoppingCart {
+        return new ShoppingCart();
+    }
 
     trips: Map<string, number>; // trip id => reserved places
 

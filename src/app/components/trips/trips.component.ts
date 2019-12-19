@@ -104,7 +104,7 @@ export class TripsComponent implements OnInit, OnDestroy {
         this.filteredTrips$ = this.filteredTrips$
             .pipe(
                 map(trips => trips.filter(trip => (
-                    trip.rating.value >= this.minRating || (!trip.rating.votes.length && this.minRating === 1)
+                    trip.rating.value >= this.minRating || (!(trip.rating.votes || []).length && this.minRating === 1)
                 ))),
             );
     }

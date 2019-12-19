@@ -22,7 +22,7 @@ export class TripsComponent implements OnInit {
             max: 0,
         },
         minRating: 1,
-        searchPhrase: /.*/g,
+        searchPhrase: /.*/,
     };
 
     sliderOptions = {
@@ -89,7 +89,7 @@ export class TripsComponent implements OnInit {
     }
 
     private updateFilters() {
-        this.filters = {...this.filters};
+        this.filters = { ...this.filters };
         this.filteredTrips$ = this.tripsService.trips$
             .pipe(
                 map(trips => trips
@@ -122,7 +122,7 @@ export class TripsComponent implements OnInit {
         console.log('handleSearchFilterKeyUp', event.target.value);
 
         const searchPhrase = event.target.value;
-        this.filters.searchPhrase = new RegExp([ '', ...searchPhrase.toLowerCase() ].map(c => `${c}.*`).join(''), 'g');
+        this.filters.searchPhrase = new RegExp([ '', ...searchPhrase.toLowerCase() ].map(c => `${c}.*`).join(''));
         this.updateFilters();
     }
 

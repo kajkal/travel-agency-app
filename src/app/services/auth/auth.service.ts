@@ -26,18 +26,15 @@ export class AuthService {
         private db: AngularFireDatabase,
         private fireAuth: AngularFireAuth,
     ) {
-
         this.authState$ = this.fireAuth.authState
             .pipe(
                 switchMap(authState => {
                     if (authState !== null) {
-                        return this.db.list('/admins', ref => ref.orderByValue().equalTo(authState.uid))
+                        return this.db.list('/admins', ref => ref.orderByKey().equalTo(authState.uid))
                             .valueChanges()
                             .pipe(
-                                map(result => ({
-                                    ...authState,
-                                    isAdmin: Array.isArray(result) && result.length === 1,
-                                })),
+                                map(result => Array.isArray(result) && result.length === 1),
+                                map(isAdmin => ({ ...authState, isAdmin })),
                             );
                     }
 
@@ -58,8 +55,7 @@ export class AuthService {
     }
 
     register({ email, password }: Credentials) {
-        return this.fireAuth.auth.createUserWithEmailAndPassword(email,
-            password);
+        return this.fireAuth.auth.createUserWithEmailAndPassword(email, password);
     }
 
     logout() {

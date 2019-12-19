@@ -3,7 +3,7 @@ import { TripsService } from '../../services/trips/trips.service';
 import { Trip } from '../../models/Trip';
 import { Observable } from 'rxjs';
 import { ChangeContext, LabelType } from 'ng5-slider';
-import { filter, map } from 'rxjs/operators';
+import { distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { LayoutService } from '../../services/layout/layout.service';
 
 
@@ -16,9 +16,16 @@ export class TripsComponent implements OnInit {
 
     private filteredTrips$: Observable<Trip[]>;
 
-    minValue = 0;
-    maxValue = 0;
-    options = {
+    filters = {
+        price: {
+            min: 0,
+            max: 0,
+        },
+        minRating: 1,
+        searchPhrase: /.*/g,
+    };
+
+    sliderOptions = {
         floor: 0,
         ceil: 0,
         translate: (value: number, label: LabelType): string => {
@@ -34,8 +41,6 @@ export class TripsComponent implements OnInit {
         vertical: true,
     };
 
-    minRating = 1;
-
     constructor(
         private tripsService: TripsService,
         private layoutService: LayoutService,
@@ -46,54 +51,79 @@ export class TripsComponent implements OnInit {
         this.tripsService.trips$
             .pipe(
                 map(trips => trips.map(trip => trip.price)),
-                filter(prices => prices.length > 0),
-            )
-            .subscribe(prices => {
-                const newOptions = {
-                    ...this.options,
+                map(prices => ({
                     floor: prices.length ? Math.min(...prices) : 0,
                     ceil: prices.length ? Math.max(...prices) : 0,
+                })),
+                distinctUntilChanged((a, b) => (a.floor === b.floor) && (a.ceil === b.ceil)),
+            )
+            .subscribe(({ floor, ceil }) => {
+                console.log('prices subscribe: ', { floor, ceil });
+
+                const newSliderOptions = {
+                    ...this.sliderOptions,
+                    floor, ceil,
                 };
 
-                if (this.minValue < newOptions.floor || this.minValue > newOptions.ceil) {
-                    this.minValue = newOptions.floor;
+                const { min, max } = this.filters.price;
+                let updateFilters = false;
+
+                if (min < floor || min > ceil) {
+                    this.filters.price.min = floor;
+                    updateFilters = true;
                 }
 
-                if (this.maxValue < newOptions.floor || this.maxValue > newOptions.ceil) {
-                    this.maxValue = newOptions.ceil;
+                if (max < floor || max > ceil) {
+                    this.filters.price.max = ceil;
+                    updateFilters = true;
                 }
 
-                this.options = newOptions;
+                this.sliderOptions = newSliderOptions;
+
+                if (updateFilters) {
+                    this.updateFilters();
+                }
             });
 
         this.filteredTrips$ = this.tripsService.trips$;
     }
 
-    get trips(): Observable<Trip[]> {
-        return this.filteredTrips$;
+    private updateFilters() {
+        this.filters = {...this.filters};
+        this.filteredTrips$ = this.tripsService.trips$
+            .pipe(
+                map(trips => trips
+                    .filter(trip => this.filters.searchPhrase.test(trip.name.toLowerCase()))
+                    .filter(trip => trip.rating.value >= this.filters.minRating || (!(trip.rating.votes || []).length && this.filters.minRating === 1))
+                    .filter(trip => trip.price >= this.filters.price.min && trip.price <= this.filters.price.max),
+                ),
+                tap(console.log),
+            );
     }
 
     handlePriceFilterChange(changeContext: ChangeContext) {
         console.log('handlePriceFilter', { min: changeContext.value, max: changeContext.highValue });
 
-        this.filteredTrips$ = this.filteredTrips$
-            .pipe(
-                map(trips => trips.filter(trip => (
-                    trip.price >= this.minValue && trip.price <= this.maxValue
-                ))),
-            );
+        this.filters.price = {
+            min: changeContext.value,
+            max: changeContext.highValue,
+        };
+        this.updateFilters();
     }
 
     handleRateFilterChange(newMinRating: number) {
         console.log('handleRateFilterChange', { newMinRating });
 
-        this.minRating = newMinRating;
-        this.filteredTrips$ = this.filteredTrips$
-            .pipe(
-                map(trips => trips.filter(trip => (
-                    trip.rating.value >= this.minRating || (!(trip.rating.votes || []).length && this.minRating === 1)
-                ))),
-            );
+        this.filters.minRating = newMinRating;
+        this.updateFilters();
+    }
+
+    handleSearchFilterKeyUp(event: any) {
+        console.log('handleSearchFilterKeyUp', event.target.value);
+
+        const searchPhrase = event.target.value;
+        this.filters.searchPhrase = new RegExp([ '', ...searchPhrase.toLowerCase() ].map(c => `${c}.*`).join(''), 'g');
+        this.updateFilters();
     }
 
 }

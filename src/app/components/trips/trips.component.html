@@ -10,26 +10,37 @@
         [opened]="!(layoutService.isMobile$ | async)"
     >
 
+        <div class="filter-container search-filter">
+            <mat-form-field>
+                <input
+                    matInput
+                    type="text"
+                    placeholder="Search"
+                    (keyup)="handleSearchFilterKeyUp($event)"
+                >
+            </mat-form-field>
+        </div>
+
         <div class="filter-container price-filter">
             <h6>Price</h6>
             <ng5-slider
-                [(value)]="minValue"
-                [(highValue)]="maxValue"
+                [(value)]="filters.price.min"
+                [(highValue)]="filters.price.max"
                 (userChange)="handlePriceFilterChange($event)"
-                [options]="options"
+                [options]="sliderOptions"
             ></ng5-slider>
         </div>
 
         <div class="filter-container rate-filter">
             <h6>Rate</h6>
-            <app-rate mode="select" [ratingValue]="minRating" (rateValueSelect)="handleRateFilterChange($event)"></app-rate>
+            <app-rate mode="select" [ratingValue]="filters.minRating" (rateValueSelect)="handleRateFilterChange($event)"></app-rate>
         </div>
 
     </mat-drawer>
 
     <mat-drawer-content>
         <section class="trips">
-            <app-trip-thumbnail *ngFor="let trip of trips | async" [trip]="trip">
+            <app-trip-thumbnail *ngFor="let trip of filteredTrips$ | async" [trip]="trip">
             </app-trip-thumbnail>
         </section>
     </mat-drawer-content>

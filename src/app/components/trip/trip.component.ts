@@ -8,6 +8,8 @@ import { ShoppingCart } from '../../models/ShoppingCart';
 import { Observable } from 'rxjs';
 import { retry, tap } from 'rxjs/operators';
 import { AuthService } from '../../services/auth/auth.service';
+import { MatDialog } from '@angular/material';
+import { UpdateTripComponent } from '../update-trip/update-trip.component';
 
 
 @Component({
@@ -27,6 +29,7 @@ export class TripComponent implements OnInit {
         private tripsService: TripsService,
         private shoppingService: ShoppingService,
         private authService: AuthService,
+        public dialog: MatDialog,
     ) {
     }
 
@@ -37,9 +40,9 @@ export class TripComponent implements OnInit {
                 retry(2),
                 tap(trip => {
                     if (!trip) {
-                    console.log(`No trip with id ${tripKey} found`);
-                    alert(`No trip with id ${tripKey} found`);
-                    this.router.navigate([ '/trips' ]);
+                        console.log(`No trip with id ${tripKey} found`);
+                        alert(`No trip with id ${tripKey} found`);
+                        this.router.navigate([ '/trips' ]);
                     }
                 }),
             );
@@ -75,7 +78,7 @@ export class TripComponent implements OnInit {
                     ...trip,
                     rating: {
                         value: (oldValue * oldVoteCount + newRateValue) / (oldVoteCount + 1),
-                        votes: [...(trip.rating.votes || []), this.authService.user.uid],
+                        votes: [ ...(trip.rating.votes || []), this.authService.user.uid ],
                     },
                 });
             } catch (e) {
@@ -84,6 +87,12 @@ export class TripComponent implements OnInit {
         } else {
             alert('You already rate this trip!');
         }
+    }
+
+    handleOpenUpdateTripDialog(trip: Trip) {
+        this.dialog.open(UpdateTripComponent, {
+            data: trip,
+        });
     }
 
     get comment() {
@@ -96,11 +105,11 @@ export class TripComponent implements OnInit {
         try {
             await this.tripsService.updateTrip({
                 ...trip,
-                comments: [...(trip.comments || []), {
+                comments: [ ...(trip.comments || []), {
                     timestamp: new Date().toISOString(),
                     author: this.authService.user.email,
                     content: this.form.value.comment,
-                }],
+                } ],
             });
             this.comment.setValue('');
             this.comment.setErrors(null);

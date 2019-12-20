@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TripComponent } from './components/trip/trip.component';
 import { TripsComponent } from './components/trips/trips.component';
 import { AddTripComponent } from './components/add-trip/add-trip.component';
-import { MatToolbarModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatProgressBarModule, MatMenuModule, MatBadgeModule, MatTooltipModule, MatGridListModule } from '@angular/material';
+import { MatToolbarModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatProgressBarModule, MatMenuModule, MatBadgeModule, MatTooltipModule, MatGridListModule, MatDialogModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
 import { CartComponent } from './components/cart/cart.component';
@@ -25,6 +25,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { UpdateTripComponent } from './components/update-trip/update-trip.component';
 
 
 @NgModule({
@@ -42,6 +43,10 @@ import { LogoutComponent } from './components/logout/logout.component';
         SignInComponent,
         SignUpComponent,
         LogoutComponent,
+        UpdateTripComponent,
+    ],
+    entryComponents: [
+        UpdateTripComponent,
     ],
     imports: [
         BrowserModule,
@@ -71,6 +76,7 @@ import { LogoutComponent } from './components/logout/logout.component';
         MatBadgeModule,
         MatTooltipModule,
         MatGridListModule,
+        MatDialogModule,
     ],
     providers: [],
     bootstrap: [ AppComponent ],

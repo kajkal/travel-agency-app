@@ -1,0 +1,147 @@
+<form novalidate [formGroup]="form" (ngSubmit)="updateTrip()">
+
+    <h1 mat-dialog-title>Update trip</h1>
+
+    <div mat-dialog-content>
+
+        <mat-form-field>
+            <input
+                matInput type="text"
+                placeholder="Trip name"
+                formControlName="name" id="name"
+            >
+
+            <mat-error *ngIf="name.invalid">
+                <div>{{ name.errors | json }}</div>
+
+                <span *ngIf="name.errors.required">Trip name is required.</span>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input
+                matInput type="text"
+                placeholder="Country"
+                formControlName="country" id="country"
+            >
+
+            <mat-error *ngIf="country.invalid">
+                <div>{{ country.errors | json }}</div>
+
+                <span *ngIf="country.errors.required">Country is required.</span>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input
+                matInput [matDatepicker]="startDatePicker"
+                placeholder="Choose a start date"
+                formControlName="startDate" id="startDate"
+            >
+            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker></mat-datepicker>
+
+            <mat-error *ngIf="startDate.invalid">
+                <div>{{ startDate.errors | json }}</div>
+
+                <span *ngIf="startDate.errors.required">Start date is required.</span>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input
+                matInput [matDatepicker]="endDatePicker"
+                placeholder="Choose a end date"
+                formControlName="endDate" id="endDate"
+            >
+            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #endDatePicker></mat-datepicker>
+
+            <mat-error *ngIf="endDate.invalid">
+                <div>{{ endDate.errors | json }}</div>
+
+                <span *ngIf="endDate.errors.required">Start date is required.</span>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input
+                matInput type="number"
+                placeholder="Price"
+                formControlName="price" id="price"
+            >
+
+            <mat-error *ngIf="price.invalid">
+                <div>{{ price.errors | json }}</div>
+
+                <span *ngIf="price.errors.required">Price is required.</span>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input
+                matInput type="number"
+                placeholder="Free places"
+                formControlName="freePlaces" id="freePlaces"
+            >
+
+            <mat-error *ngIf="freePlaces.invalid">
+                <div>{{ freePlaces.errors | json }}</div>
+
+                <span *ngIf="freePlaces.errors.required">Free places is required.</span>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+                    <textarea
+                        matInput cdkTextareaAutosize
+                        placeholder="Description"
+                        formControlName="description" id="description"
+                    ></textarea>
+
+            <mat-error *ngIf="description.invalid">
+                <div>{{ description.errors | json }}</div>
+
+                <span *ngIf="description.errors.required">Description is required.</span>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input
+                matInput type="text"
+                placeholder="Photo url"
+                formControlName="thumbnailUrl" id="thumbnailUrl"
+            >
+
+            <mat-error *ngIf="thumbnailUrl.invalid">
+                <div>{{ thumbnailUrl.errors | json }}</div>
+
+                <span *ngIf="thumbnailUrl.errors.required">Photo url is required.</span>
+            </mat-error>
+        </mat-form-field>
+
+    </div>
+
+    <div mat-dialog-actions align="end">
+
+        <button
+            mat-raised-button
+            color="warn"
+            type="button"
+            (click)="onCancelClick()"
+        >
+            Cancel
+        </button>
+
+        <button
+            mat-raised-button
+            color="primary"
+            [disabled]="form.invalid"
+        >
+            Update
+        </button>
+
+    </div>
+
+
+</form>

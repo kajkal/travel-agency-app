@@ -11,6 +11,11 @@
 
                 <mat-menu #menu="matMenu">
 
+                    <button mat-menu-item (click)="handleOpenUpdateTripDialog(trip)">
+                        <mat-icon>build</mat-icon>
+                        <span>Update</span>
+                    </button>
+
                     <button mat-menu-item (click)="handleRemove(trip)">
                         <mat-icon>delete</mat-icon>
                         <span>Delete</span>

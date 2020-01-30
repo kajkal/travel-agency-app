@@ -165,10 +165,24 @@ describe('SignInComponent', () => {
             fixture.detectChanges();
 
             // then
-            console.log('then');
             expect(passwordField.getErrors()).toEqual([
                 'Wrong password',
             ]);
+        });
+
+        it('should display \'Too many requests\' error when the user has sent too many requests', async () => {
+            // given
+            const authService = TestBed.get(AuthService);
+            authService.login.and.returnValue(Promise.reject({ code: 'auth/too-many-requests', message: 'Too Many Requests' }));
+            fixture.detectChanges();
+
+            // when
+            await fillSignInForm('user@domain.com', '123456');
+            fixture.detectChanges();
+            const formErrors = fixture.debugElement.query(By.css('.form-error-message > span'));
+
+            // then
+            expect(formErrors.nativeElement.innerText).toBe('Too Many Requests');
         });
 
     });

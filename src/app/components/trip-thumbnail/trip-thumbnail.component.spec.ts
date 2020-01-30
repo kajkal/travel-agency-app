@@ -136,6 +136,30 @@ describe('TripThumbnailComponent', () => {
         component.trip = baseTrip;
         const shoppingService = TestBed.get(ShoppingService);
         shoppingService.setShoppingCartMock(new Map([
+            [ baseTrip.key, 2 ],
+        ]));
+        fixture.detectChanges();
+
+        // when
+        const decrementButton = fixture.debugElement.query(By.css('.decrement-btn'));
+        decrementButton.nativeElement.click();
+        fixture.detectChanges();
+        const availableTickets = fixture.debugElement.query(By.css('.available > .limit'));
+
+        // then
+        expect(shoppingService.shoppingCart$.value).toEqual({
+            trips: new Map([
+                [ baseTrip.key, 1 ],
+            ]),
+        });
+        expect(availableTickets.nativeElement.innerText).toBe(`${baseTrip.freePlaces}`);
+    });
+
+    it('should removes trip entry from card when reserved ticket count reach 0', () => {
+        // given
+        component.trip = baseTrip;
+        const shoppingService = TestBed.get(ShoppingService);
+        shoppingService.setShoppingCartMock(new Map([
             [ baseTrip.key, 1 ],
         ]));
         fixture.detectChanges();

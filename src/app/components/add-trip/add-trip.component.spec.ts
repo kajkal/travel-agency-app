@@ -41,7 +41,7 @@ class InputWrapper {
     }
 }
 
-fdescribe('AddTripComponent', () => {
+describe('AddTripComponent', () => {
 
     let component: AddTripComponent;
     let fixture: ComponentFixture<AddTripComponent>;

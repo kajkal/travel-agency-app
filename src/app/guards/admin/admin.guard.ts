@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth/auth.service';
-import { AngularFireDatabase } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
 
 
@@ -12,9 +11,7 @@ import { map } from 'rxjs/operators';
 export class AdminGuard implements CanActivate {
 
     constructor(
-        private db: AngularFireDatabase,
         private authService: AuthService,
-        private router: Router,
     ) {
     }
 

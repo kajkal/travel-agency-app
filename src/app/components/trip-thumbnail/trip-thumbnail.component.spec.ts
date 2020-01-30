@@ -152,7 +152,7 @@ describe('TripThumbnailComponent', () => {
                 [ baseTrip.key, 1 ],
             ]),
         });
-        expect(availableTickets.nativeElement.innerText).toBe(`${baseTrip.freePlaces}`);
+        expect(availableTickets.nativeElement.innerText).toBe(`${baseTrip.freePlaces - 1}`);
     });
 
     it('should removes trip entry from card when reserved ticket count reach 0', () => {

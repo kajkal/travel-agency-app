@@ -16,7 +16,6 @@ import { TripThumbnailComponent } from './components/trip-thumbnail/trip-thumbna
 import { MatSidenavModule } from '@angular/material';
 import { Ng5SliderModule } from 'ng5-slider';
 import { RateComponent } from './components/rate/rate.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
@@ -39,7 +38,6 @@ import { UpdateTripComponent } from './components/update-trip/update-trip.compon
         ConfirmationComponent,
         TripThumbnailComponent,
         RateComponent,
-        NotFoundComponent,
         SignInComponent,
         SignUpComponent,
         LogoutComponent,

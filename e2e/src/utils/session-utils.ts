@@ -1,9 +1,11 @@
 import { waitForElementToBeDisplayed, waitForElementToBeHidden, waitForUrlToBeActive } from './asynchronous-utils';
 import { Header } from '../models/header/Header';
 import { SignInForm } from '../models/forms/SignInForm';
+import { browser } from 'protractor';
 
 
 export async function signIn(email = 'test@domain.com', password = 'haslo88') {
+    await browser.get('/sign-in');
     await waitForElementToBeDisplayed(SignInForm.FORM_LOCATOR);
     const form = new SignInForm();
 

@@ -5,6 +5,7 @@ export class TripPreview {
 
     private rating: ElementFinder;
     private tripName: ElementFinder;
+    private tripPrice: ElementFinder;
     private availablePlaceCount: ElementFinder;
     private reservedTicketsCount: ElementFinder;
     private reserveTicketButton: ElementFinder;
@@ -13,6 +14,7 @@ export class TripPreview {
     constructor(tripPreviewRoot: ElementFinder) {
         this.rating = tripPreviewRoot.element(by.css('.rating'));
         this.tripName = tripPreviewRoot.element(by.css('.mat-card-title'));
+        this.tripPrice = tripPreviewRoot.element(by.className('price'));
         this.availablePlaceCount = tripPreviewRoot.element(by.css('.limit'));
         this.reservedTicketsCount = tripPreviewRoot.element(by.css('.actions > span'));
         this.reserveTicketButton = tripPreviewRoot.element(by.css('.increment-btn'));
@@ -21,6 +23,11 @@ export class TripPreview {
 
     getTripName(): Promise<string> {
         return this.tripName.getText() as Promise<string>;
+    }
+
+    async getTripPrice(): Promise<number> {
+        const rawValue = await this.tripPrice.getText();
+        return Number(rawValue.replace(/[^0-9.]+/g, ''));
     }
 
     async getRatingValue(): Promise<number> {

@@ -26,4 +26,9 @@ export class Header {
         this.logoutOption = element(by.css('button[routerlink="/logout"]'));
     }
 
+    async getReservedTicketCountIndicatorValue(): Promise<number> {
+        const value = await this.cartButton.element(by.className('mat-badge-content')).getText();
+        return Number(value);
+    }
+
 }

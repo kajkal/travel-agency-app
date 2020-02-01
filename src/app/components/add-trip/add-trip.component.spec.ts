@@ -68,10 +68,6 @@ describe('AddTripComponent', () => {
         component = fixture.componentInstance;
     });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
-
     it('should add new trip on \'Create\' button click and navigate to /trips', async () => {
         // given
         const router = TestBed.get(Router);

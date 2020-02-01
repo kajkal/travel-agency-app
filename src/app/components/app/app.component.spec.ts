@@ -23,6 +23,18 @@ describe('AppComponent', () => {
         component = fixture.componentInstance;
     });
 
+    it('should have header', () => {
+        // given
+        fixture.detectChanges();
+
+        // when
+        const header = fixture.debugElement.query(By.directive(HeaderComponent));
+
+        // then
+        expect(header).toBeTruthy();
+    });
+
+
     it('should have router outlet', () => {
         // given
         fixture.detectChanges();

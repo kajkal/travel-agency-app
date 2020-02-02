@@ -21,13 +21,6 @@ describe('Sign in page', () => {
     });
 
     it('should sign and logout in successfully', async () => {
-        /* Validates header links before sign in */
-
-        expect(await header.signInButton.isPresent()).toBe(true);
-        expect(await header.signUpButton.isPresent()).toBe(true);
-        expect(await header.cartButton.isPresent()).toBe(false);
-        expect(await header.optionMenuTriggerButton.isPresent()).toBe(false);
-
         /* Validates if sign in process is successful */
 
         await form.fillSignInForm('test@domain.com', 'haslo88');
@@ -35,13 +28,6 @@ describe('Sign in page', () => {
         await waitForElementToBeHidden(form.progressBar);
 
         await waitForUrlToBeActive('/trips');
-
-        /* Validates header links after sign in */
-
-        expect(await header.signInButton.isPresent()).toBe(false);
-        expect(await header.signUpButton.isPresent()).toBe(false);
-        expect(await header.cartButton.isPresent()).toBe(true);
-        expect(await header.optionMenuTriggerButton.isPresent()).toBe(true);
 
         /* Validates if logout process is successful */
 
@@ -96,6 +82,47 @@ describe('Sign in page', () => {
             'The password is invalid or the user does not have a password.',
         ]);
         expect(await form.submitButton.isDisplayed()).toBe(true);
+    });
+
+    it('should display links adequate to user auth state', async () => {
+        /* Validates header links before sign in */
+
+        expect(await header.signInButton.isPresent()).toBe(true);
+        expect(await header.signUpButton.isPresent()).toBe(true);
+        expect(await header.cartButton.isPresent()).toBe(false);
+        expect(await header.optionMenuTriggerButton.isPresent()).toBe(false);
+
+        /* Sign in */
+
+        await form.fillSignInForm('test@domain.com', 'haslo88');
+        await form.submit();
+        await waitForElementToBeHidden(form.progressBar);
+
+        await waitForUrlToBeActive('/trips');
+
+        /* Validates header links after sign in */
+
+        expect(await header.signInButton.isPresent()).toBe(false);
+        expect(await header.signUpButton.isPresent()).toBe(false);
+        expect(await header.cartButton.isPresent()).toBe(true);
+        expect(await header.optionMenuTriggerButton.isPresent()).toBe(true);
+
+        /* Logout */
+
+        await waitForElementToBeDisplayed(Header.HEADER_LOCATOR);
+        await header.optionMenuTriggerButton.click();
+
+        await waitForElementToBeDisplayed(Header.OPTION_MENU_LOCATOR);
+        await header.logoutOption.click();
+
+        await waitForUrlToBeActive('/sign-in');
+
+        /* Validates header links after logout */
+
+        expect(await header.signInButton.isPresent()).toBe(true);
+        expect(await header.signUpButton.isPresent()).toBe(true);
+        expect(await header.cartButton.isPresent()).toBe(false);
+        expect(await header.optionMenuTriggerButton.isPresent()).toBe(false);
     });
 
 });

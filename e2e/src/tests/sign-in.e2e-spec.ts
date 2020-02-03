@@ -99,6 +99,7 @@ describe('Sign in page', () => {
         await waitForElementToBeHidden(form.progressBar);
 
         await waitForUrlToBeActive('/trips');
+        await waitForElementToBeDisplayed(Header.HEADER_LOCATOR);
 
         /* Validates header links after sign in */
 
@@ -107,14 +108,20 @@ describe('Sign in page', () => {
         expect(await header.cartButton.isPresent()).toBe(true);
         expect(await header.optionMenuTriggerButton.isPresent()).toBe(true);
 
+        /* Opens more options menu */
+
+        await header.optionMenuTriggerButton.click();
+        await waitForElementToBeDisplayed(Header.OPTION_MENU_LOCATOR);
+
+        /* Validates options  */
+
+        expect(await header.addTripOption.isPresent()).toBe(false);
+        expect(await header.tripsOption.isPresent()).toBe(true);
+        expect(await header.logoutOption.isPresent()).toBe(true);
+
         /* Logout */
 
-        await waitForElementToBeDisplayed(Header.HEADER_LOCATOR);
-        await header.optionMenuTriggerButton.click();
-
-        await waitForElementToBeDisplayed(Header.OPTION_MENU_LOCATOR);
         await header.logoutOption.click();
-
         await waitForUrlToBeActive('/sign-in');
 
         /* Validates header links after logout */

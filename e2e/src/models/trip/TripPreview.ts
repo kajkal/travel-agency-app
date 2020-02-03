@@ -1,4 +1,4 @@
-import { by, ElementFinder } from 'protractor';
+import { browser, by, ElementFinder } from 'protractor';
 
 
 export class TripPreview {

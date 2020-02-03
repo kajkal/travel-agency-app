@@ -7,7 +7,7 @@ import { CartSummary } from '../models/cart/CartSummary';
 import { CartConfirmation } from '../models/cart/CartConfirmation';
 
 
-describe('Trip reservation process', () => {
+describe('trip reservation process', () => {
 
     let header: Header;
 

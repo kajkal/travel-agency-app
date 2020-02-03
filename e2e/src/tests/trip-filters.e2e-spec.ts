@@ -5,7 +5,7 @@ import { TripPreviewList } from '../models/trip/TripPreviewList';
 import { TripsFilters } from '../models/trip/TripsFilters';
 
 
-describe('Trips filters', () => {
+describe('trips filters', () => {
 
     let filters: TripsFilters;
 

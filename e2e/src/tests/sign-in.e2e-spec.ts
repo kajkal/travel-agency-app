@@ -4,7 +4,7 @@ import { Header } from '../models/header/Header';
 import { SignInForm } from '../models/forms/SignInForm';
 
 
-describe('Sign in page', () => {
+describe('sign in process', () => {
 
     let header: Header;
     let form: SignInForm;

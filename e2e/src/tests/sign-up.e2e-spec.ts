@@ -5,7 +5,7 @@ import { waitForElementToBeDisplayed, waitForElementToBeHidden, waitForUrlToBeAc
 import { generateRandomEmail } from '../utils/other-utils';
 
 
-describe('Sign up process', () => {
+describe('sign up process', () => {
 
     let header: Header;
     let form: SignUpForm;

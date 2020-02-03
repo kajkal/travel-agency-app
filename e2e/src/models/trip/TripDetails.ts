@@ -1,6 +1,6 @@
 import { browser, by, element, ElementFinder } from 'protractor';
 import { Comment } from './Comment';
-import { waitForElementToBeClickable, waitForElementToBeDisplayed } from '../../utils/asynchronous-utils';
+import { waitForElementToBeClickable } from '../../utils/asynchronous-utils';
 
 
 export class TripDetails {
@@ -53,7 +53,7 @@ export class TripDetails {
     }
 
     async getComments(): Promise<Comment[]> {
-        const rawComments = this.commentsRoot.all(Comment.LOCATOR);
+        const rawComments = this.commentsRoot.all(Comment.ELEMENT);
         const commentCount = await rawComments.count();
         const commentList = new Array(commentCount);
         for (let i = 0; i < commentCount; i++) {

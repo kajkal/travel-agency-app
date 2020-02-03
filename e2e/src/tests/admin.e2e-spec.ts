@@ -25,7 +25,7 @@ describe('admin panel', () => {
 
     beforeEach(async () => {
         await browser.get('/trips');
-        await waitForElementToBeDisplayed(Header.HEADER_LOCATOR);
+        await waitForElementToBeDisplayed(Header.HEADER_ELEMENT);
         await waitForElementToBeDisplayed(element(by.tagName('app-trip-thumbnail')));
     });
 
@@ -40,7 +40,7 @@ describe('admin panel', () => {
         /* Opens more options menu */
 
         await header.optionMenuTriggerButton.click();
-        await waitForElementToBeDisplayed(Header.OPTION_MENU_LOCATOR);
+        await waitForElementToBeDisplayed(Header.OPTION_MENU_ELEMENT);
 
         /* Validates admin options  */
 
@@ -55,7 +55,7 @@ describe('admin panel', () => {
         /* Select 'Add Trip' option in header */
 
         await header.optionMenuTriggerButton.click();
-        await waitForElementToBeDisplayed(Header.OPTION_MENU_LOCATOR);
+        await waitForElementToBeDisplayed(Header.OPTION_MENU_ELEMENT);
         await header.addTripOption.click();
         await waitForUrlToBeActive('/admin/new-trip');
         await waitForElementToBeDisplayed(AddTripForm.ELEMENT);

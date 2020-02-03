@@ -3,16 +3,16 @@ import { browser, by, element, ElementFinder } from 'protractor';
 
 export class TripsFilters {
 
-    static FILTERS_LOCATOR = element(by.className('mat-drawer'));
+    static ELEMENT = element(by.className('mat-drawer'));
 
     private searchFilter: ElementFinder;
     private priceFilter: ElementFinder;
     private rateFilter: ElementFinder;
 
     constructor() {
-        this.searchFilter = TripsFilters.FILTERS_LOCATOR.element(by.className('search-filter'));
-        this.priceFilter = TripsFilters.FILTERS_LOCATOR.element(by.className('price-filter'));
-        this.rateFilter = TripsFilters.FILTERS_LOCATOR.element(by.className('rate-filter'));
+        this.searchFilter = TripsFilters.ELEMENT.element(by.className('search-filter'));
+        this.priceFilter = TripsFilters.ELEMENT.element(by.className('price-filter'));
+        this.rateFilter = TripsFilters.ELEMENT.element(by.className('rate-filter'));
     }
 
     async searchByPhrase(searchPhrase: string): Promise<void> {

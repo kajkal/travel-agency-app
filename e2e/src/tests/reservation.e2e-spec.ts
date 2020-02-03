@@ -56,7 +56,7 @@ describe('trip reservation process', () => {
 
         await header.cartButton.click();
         await waitForUrlToBeActive('/cart');
-        await waitForElementToBeDisplayed(CartSummary.CART_SUMMARY_LOCATOR);
+        await waitForElementToBeDisplayed(CartSummary.ELEMENT);
         const cartSummary = new CartSummary();
 
         /* Validates if total price is correct */
@@ -67,7 +67,7 @@ describe('trip reservation process', () => {
 
         await cartSummary.proceedButton.click();
         await waitForUrlToBeActive('/confirmation');
-        await waitForElementToBeDisplayed(CartConfirmation.CART_CONFIRMATION_LOCATOR);
+        await waitForElementToBeDisplayed(CartConfirmation.ELEMENT);
         const cartConfirmation = new CartConfirmation();
 
         /* Confirms transaction */
@@ -113,21 +113,21 @@ describe('trip reservation process', () => {
 
         await header.cartButton.click();
         await waitForUrlToBeActive('/cart');
-        await waitForElementToBeDisplayed(CartSummary.CART_SUMMARY_LOCATOR);
+        await waitForElementToBeDisplayed(CartSummary.ELEMENT);
         let cartSummary = new CartSummary();
 
         /* Proceeds to confirmation page */
 
         await cartSummary.proceedButton.click();
         await waitForUrlToBeActive('/confirmation');
-        await waitForElementToBeDisplayed(CartConfirmation.CART_CONFIRMATION_LOCATOR);
+        await waitForElementToBeDisplayed(CartConfirmation.ELEMENT);
         const cartConfirmation = new CartConfirmation();
 
         /* Back to Cart page */
 
         await cartConfirmation.backButton.click();
         await waitForUrlToBeActive('/cart');
-        await waitForElementToBeDisplayed(CartSummary.CART_SUMMARY_LOCATOR);
+        await waitForElementToBeDisplayed(CartSummary.ELEMENT);
         cartSummary = new CartSummary();
 
         /* Cancel the transaction */

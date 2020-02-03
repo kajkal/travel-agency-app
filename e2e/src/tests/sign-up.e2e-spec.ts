@@ -39,10 +39,10 @@ describe('sign up process', () => {
 
         /* Logout */
 
-        await waitForElementToBeDisplayed(Header.HEADER_LOCATOR);
+        await waitForElementToBeDisplayed(Header.HEADER_ELEMENT);
         await header.optionMenuTriggerButton.click();
 
-        await waitForElementToBeDisplayed(Header.OPTION_MENU_LOCATOR);
+        await waitForElementToBeDisplayed(Header.OPTION_MENU_ELEMENT);
         await header.logoutOption.click();
 
         await waitForUrlToBeActive('/sign-in');

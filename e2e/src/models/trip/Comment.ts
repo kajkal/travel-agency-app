@@ -3,16 +3,16 @@ import { by, ElementFinder } from 'protractor';
 
 export class Comment {
 
-    static LOCATOR = by.className('comment');
+    static ELEMENT = by.className('comment');
 
     private author: ElementFinder;
     private timestamp: ElementFinder;
     private content: ElementFinder;
 
-    constructor(commentRoot: ElementFinder) {
-        this.author = commentRoot.element(by.className('author'));
-        this.timestamp = commentRoot.element(by.className('timestamp'));
-        this.content = commentRoot.element(by.className('content'));
+    constructor(root: ElementFinder) {
+        this.author = root.element(by.className('author'));
+        this.timestamp = root.element(by.className('timestamp'));
+        this.content = root.element(by.className('content'));
     }
 
     getAuthor(): Promise<string> {

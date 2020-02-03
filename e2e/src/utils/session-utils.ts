@@ -8,7 +8,7 @@ import { generateRandomEmail } from './other-utils';
 
 export async function signIn(email = 'test@domain.com', password = 'haslo88') {
     await browser.get('/sign-in');
-    await waitForElementToBeDisplayed(SignInForm.FORM_LOCATOR);
+    await waitForElementToBeDisplayed(SignInForm.ELEMENT);
     const form = new SignInForm();
 
     await form.fillSignInForm(email, password);
@@ -21,10 +21,10 @@ export async function signIn(email = 'test@domain.com', password = 'haslo88') {
 export async function logout() {
     const header = new Header();
 
-    await waitForElementToBeDisplayed(Header.HEADER_LOCATOR);
+    await waitForElementToBeDisplayed(Header.HEADER_ELEMENT);
     await header.optionMenuTriggerButton.click();
 
-    await waitForElementToBeDisplayed(Header.OPTION_MENU_LOCATOR);
+    await waitForElementToBeDisplayed(Header.OPTION_MENU_ELEMENT);
     await header.logoutOption.click();
 
     await waitForUrlToBeActive('/sign-in');

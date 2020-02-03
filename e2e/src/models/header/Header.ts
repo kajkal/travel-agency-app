@@ -3,8 +3,8 @@ import { by, element, ElementFinder } from 'protractor';
 
 export class Header {
 
-    static HEADER_LOCATOR = element(by.css('app-header'));
-    static OPTION_MENU_LOCATOR = element(by.css('div[role="menu"]'));
+    static HEADER_ELEMENT = element(by.css('app-header'));
+    static OPTION_MENU_ELEMENT = element(by.css('div[role="menu"]'));
 
     signInButton: ElementFinder;
     signUpButton: ElementFinder;

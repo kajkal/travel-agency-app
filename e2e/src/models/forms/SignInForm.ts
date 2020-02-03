@@ -5,7 +5,7 @@ import { getFormFieldById } from '../../utils/form-utils';
 
 export class SignInForm {
 
-    static FORM_LOCATOR = element(by.css('app-sign-in'));
+    static ELEMENT = element(by.css('app-sign-in'));
 
     formTitle: ElementFinder;
     emailField: FormField;
@@ -14,7 +14,7 @@ export class SignInForm {
     progressBar: ElementFinder;
 
     constructor() {
-        const formRoot: ElementFinder = SignInForm.FORM_LOCATOR;
+        const formRoot: ElementFinder = SignInForm.ELEMENT;
 
         this.formTitle = formRoot.element(by.css('.mat-card-title'));
 

@@ -15,7 +15,7 @@ describe('sign in process', () => {
 
     beforeEach(async () => {
         await browser.get('/sign-in');
-        await waitForElementToBeDisplayed(SignInForm.FORM_LOCATOR);
+        await waitForElementToBeDisplayed(SignInForm.ELEMENT);
         header = new Header();
         form = new SignInForm();
     });
@@ -31,10 +31,10 @@ describe('sign in process', () => {
 
         /* Validates if logout process is successful */
 
-        await waitForElementToBeDisplayed(Header.HEADER_LOCATOR);
+        await waitForElementToBeDisplayed(Header.HEADER_ELEMENT);
         await header.optionMenuTriggerButton.click();
 
-        await waitForElementToBeDisplayed(Header.OPTION_MENU_LOCATOR);
+        await waitForElementToBeDisplayed(Header.OPTION_MENU_ELEMENT);
         await header.logoutOption.click();
 
         await waitForUrlToBeActive('/sign-in');
@@ -99,7 +99,7 @@ describe('sign in process', () => {
         await waitForElementToBeHidden(form.progressBar);
 
         await waitForUrlToBeActive('/trips');
-        await waitForElementToBeDisplayed(Header.HEADER_LOCATOR);
+        await waitForElementToBeDisplayed(Header.HEADER_ELEMENT);
 
         /* Validates header links after sign in */
 
@@ -111,7 +111,7 @@ describe('sign in process', () => {
         /* Opens more options menu */
 
         await header.optionMenuTriggerButton.click();
-        await waitForElementToBeDisplayed(Header.OPTION_MENU_LOCATOR);
+        await waitForElementToBeDisplayed(Header.OPTION_MENU_ELEMENT);
 
         /* Validates options  */
 

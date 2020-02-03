@@ -5,12 +5,12 @@ export class FormField {
 
     input: ElementFinder;
 
-    constructor(private formFieldWrapper: ElementFinder, fieldId: string) {
-        this.input = formFieldWrapper.element(by.id(fieldId));
+    constructor(private root: ElementFinder, fieldId: string) {
+        this.input = root.element(by.id(fieldId));
     }
 
     getErrors() {
-        return this.formFieldWrapper
+        return this.root
             .all(by.css('.mat-error > span'))
             .map(inputError => inputError.getText());
     }

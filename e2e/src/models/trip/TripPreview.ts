@@ -58,4 +58,8 @@ export class TripPreview {
         await this.cancelTicketReservationButton.click();
     }
 
+    async navigateToTripDetailsPage(): Promise<void> {
+        await this.rating.click();
+    }
+
 }

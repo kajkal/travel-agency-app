@@ -15,3 +15,8 @@ export async function waitForUrlToBeActive(url: string, timeout = 5000) {
     const EC = protractor.ExpectedConditions;
     await browser.wait(EC.urlContains(url), timeout, `expected url "${url}" is not active`);
 }
+
+export async function waitForAlert(timeout = 5000) {
+    const EC = protractor.ExpectedConditions;
+    await browser.wait(EC.alertIsPresent(), timeout, `expected alert to be displayed`);
+}

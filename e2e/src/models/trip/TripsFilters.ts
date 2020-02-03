@@ -30,8 +30,8 @@ export class TripsFilters {
             .perform();
     }
 
-    async selectMinimalRate(rate: 1 | 2 | 3 | 4 | 5): Promise<void> {
-        const selectedRate = this.rateFilter.all(by.className('mat-icon')).get(rate - 1);
+    async selectMinimalRating(rating: 1 | 2 | 3 | 4 | 5): Promise<void> {
+        const selectedRate = this.rateFilter.all(by.className('mat-icon')).get(rating - 1);
         await browser.actions()
             .mouseMove(selectedRate)
             .perform();

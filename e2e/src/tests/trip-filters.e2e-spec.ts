@@ -55,7 +55,7 @@ describe('Trips filters', () => {
         const fillTripList = await TripPreviewList.loadTripPreviewList();
         expect(fillTripList.length).toBe(9);
 
-        await filters.selectMinimalRate(5);
+        await filters.selectMinimalRating(5);
 
         const filteredTripList = await TripPreviewList.loadTripPreviewList();
         expect(filteredTripList.length).toBe(2);
@@ -64,7 +64,7 @@ describe('Trips filters', () => {
             expect(rating).toBeGreaterThanOrEqual(5);
         });
 
-        await filters.selectMinimalRate(1);
+        await filters.selectMinimalRating(1);
     });
 
 });

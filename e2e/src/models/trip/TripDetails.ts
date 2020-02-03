@@ -1,4 +1,4 @@
-import { by, element, ElementFinder } from 'protractor';
+import { browser, by, element, ElementFinder } from 'protractor';
 import { Comment } from './Comment';
 
 
@@ -55,6 +55,14 @@ export class TripDetails {
             commentList[ i ] = new Comment(rawComment);
         }
         return commentList;
+    }
+
+    async rateTrip(rating: 1 | 2 | 3 | 4 | 5): Promise<void> {
+        const selectedRate = this.rating.all(by.className('mat-icon')).get(rating - 1);
+        await browser.actions()
+            .mouseMove(selectedRate)
+            .perform();
+        await selectedRate.click();
     }
 
 }

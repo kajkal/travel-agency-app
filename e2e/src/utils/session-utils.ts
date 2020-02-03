@@ -2,6 +2,8 @@ import { waitForElementToBeDisplayed, waitForElementToBeHidden, waitForUrlToBeAc
 import { Header } from '../models/header/Header';
 import { SignInForm } from '../models/forms/SignInForm';
 import { browser } from 'protractor';
+import { SignUpForm } from '../models/forms/SignUpForm';
+import { generateRandomEmail } from './other-utils';
 
 
 export async function signIn(email = 'test@domain.com', password = 'haslo88') {
@@ -26,4 +28,16 @@ export async function logout() {
     await header.logoutOption.click();
 
     await waitForUrlToBeActive('/sign-in');
+}
+
+export async function signUp() {
+    await browser.get('/sign-up');
+    await waitForElementToBeDisplayed(SignUpForm.ELEMENT);
+    const form = new SignUpForm();
+
+    await form.fillSignUpForm(generateRandomEmail(), 'haslo88');
+    await form.submit();
+    await waitForElementToBeHidden(form.progressBar);
+
+    await waitForUrlToBeActive('/trips');
 }

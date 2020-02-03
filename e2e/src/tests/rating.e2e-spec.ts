@@ -1,5 +1,5 @@
 import { browser, by, element } from 'protractor';
-import { logout, signIn } from '../utils/session-utils';
+import { logout, signUp } from '../utils/session-utils';
 import { waitForAlert, waitForElementToBeDisplayed, waitForUrlToBeActive } from '../utils/asynchronous-utils';
 import { TripPreviewList } from '../models/trip/TripPreviewList';
 import { TripDetails } from '../models/trip/TripDetails';
@@ -9,7 +9,7 @@ describe('trip rating process', () => {
 
     beforeAll(async () => {
         await browser.waitForAngularEnabled(false);
-        await signIn();
+        await signUp();
     });
 
     afterAll(async () => {
@@ -31,17 +31,9 @@ describe('trip rating process', () => {
         await waitForElementToBeDisplayed(TripDetails.ELEMENT);
         const tripDetails = new TripDetails();
 
-        /* Validates initial state */
-
-        expect(await tripDetails.getRatingValue()).toBe(0);
-
         /* Rate trip for the first time */
 
         await tripDetails.rateTrip(3);
-
-        /* Validates if trip rating is set properly */
-
-        expect(await tripDetails.getRatingValue()).toBe(3);
 
         /* Rate trip for the second time */
 

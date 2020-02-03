@@ -1,0 +1,4 @@
+export function generateRandomEmail(): string {
+    const randomString = [ ...Array(10) ].map(() => Math.random().toString(36)[ 2 ]).join('');
+    return `${randomString}@domain.com`;
+}
